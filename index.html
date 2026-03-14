@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COSY - Joyeux 1 an 🎉</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: #faf8f5;
+      color: #1e1e2f;
+    }
+
+    .birthday-banner {
+      background: #e683db;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(138, 79, 255, 0.3);
+    }
+
+    .birthday-banner span {
+      display: block;
+      font-size: 2.2rem;
+      margin-top: 0.3rem;
+    }
+
+    .birthday-banner .small {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-top: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .nav-menu {
+      background: white;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(138, 79, 255, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      border-bottom: 2px solid #f0eaff;
+    }
+
+    .nav-item {
+      background: none;
+      border: 2px solid #8a4fff;
+      color: #8a4fff;
+      padding: 0.5rem 1rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav-item:hover {
+      background: #8a4fff;
+      color: white;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #8a4fff;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 0 #ffd6a8;
+    }
+
+    .subhead {
+      font-size: 1rem;
+      color: #4a4a5e;
+      text-align: center;
+      max-width: 700px;
+      background: #ffffffd9;
+      padding: 0.8rem 1.2rem;
+      border-radius: 60px;
+    }
+
+    .category-section {
+      scroll-margin-top: 70px;
+      margin-bottom: 3rem;
+    }
+
+    .category-title {
+      font-size: 2rem;
+      color: #1e1e2f;
+      margin: 1.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #8a4fff;
+      display: inline-block;
+    }
+
+    .subcategory-title {
+      font-size: 1.5rem;
+      color: #4a4a5e;
+      margin: 1.5rem 0 1rem;
+      padding-left: 0.5rem;
+      border-left: 4px solid #8a4fff;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1rem 0.8rem 1.2rem;
+      box-shadow: 0 8px 16px -8px rgba(138, 79, 255, 0.08);
+      transition: all 0.2s ease;
+      border: 1px solid #f0eaff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 24px -8px rgba(138, 79, 255, 0.2);
+    }
+
+    .product-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f0eaff;
+      border-radius: 20px;
+      margin-bottom: 0.8rem;
+      overflow: hidden;
+      border: 2px solid white;
+      box-shadow: 0 4px 0 #8a4fff20;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      color: #1e1e2f;
+    }
+
+    .product-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #8a4fff;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .price-box {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 0.3rem 0;
+    }
+
+    .old-price {
+      font-size: 0.9rem;
+      color: #a0a0b0;
+      text-decoration: line-through;
+    }
+
+    .new-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1e1e2f;
+    }
+
+    .new-price small {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #6b6b7e;
+    }
+
+    .discount-badge {
+      background: #ff6b6b;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 60px;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+      align-self: flex-start;
+    }
+
+    .view-more-btn {
+      background: none;
+      border: 2px solid #8a4fff;
+      color: #8a4fff;
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 1rem auto 0;
+      display: block;
+    }
+
+    .view-more-btn:hover {
+      background: #8a4fff;
+      color: white;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a0a0b0;
+      margin-top: 3rem;
+      padding: 1rem 0;
+      border-top: 1px solid #e0d0ff;
+    }
+
+    @media (max-width: 600px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      
+      .nav-menu {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="birthday-banner">
+     JOYEUX 1 AN COSY ! 🎂
+    <span>-20% sur toute la boutique</span>
+    <div class="small">Offre valable du 08 au 31 mars</div>
+  </div>
+
+  <div class="nav-menu" id="navMenu"></div>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo">COSY</div>
+      <div class="subhead">
+        ✨ Bracelets, colliers, parures, bayas, chevillères et accessoires en perles ✨
+      </div>
+    </div>
+
+    <!-- Les sections seront générées ici -->
+    <div id="sections-container"></div>
+
+    <div class="footer-note">
+      © COSY 2026 — Prix en Dinars Tunisiens (TND) • Conversion USD indicative
+    </div>
+  </div>
+
+  <script>
+    // ------------------------------------------------------------
+    // 📦 LISTE DE TOUS TES PRODUITS - FACILE À MODIFIER !
+    // ------------------------------------------------------------
+    // Pour ajouter un produit : copie cette ligne et change les infos :
+    // { name: "Nom", cat: "Catégorie", price: 35, image: "https://i.imgur.com/xxx.jpg" },
+    // ------------------------------------------------------------
+
+    const TND_TO_USD = 0.32; // Taux de conversion (ajuste si besoin)
+    const DISCOUNT = 0.20; // -20%
+
+    const products = [
+      // =============================================
+      // COLLIERS HOMME (liens corrigés avec i.imgur.com)
+      // =============================================
+      { name: "Collier pour Homme ", cat: "Collier Homme", price: 10, image: "https://i.imgur.com/HZiQnBB.jpg" },
+      { name: "Collier pour  Homme ", cat: "Collier Homme", price: 10, image: "https://i.imgur.com/aBdOkhj.jpg" },
+      { name: "Collier pour Homme ", cat: "Collier Homme", price: 12, image: "https://i.imgur.com/rBCgpDG.jpg" },
+      { name: "Collier pour  Homme ", cat: "Collier Homme", price: 15, image: "https://i.imgur.com/jO22tqH.jpg" },
+      { name: "Collier pour  Homme", cat: "Collier Homme", price: 10, image: "https://i.imgur.com/xlAEAmx.jpg" },
+      { name: "Collier  pour Homme ", cat: "Collier Homme", price: 23, image: "https://i.imgur.com/n4L8k10.jpg" },
+      { name: "Collier pour  Homme avec  Pendentif", cat: "Collier Homme", price: 23, image: "https://i.imgur.com/1twVaqj.jpg" },
+      { name: "Collier  pour Homme ", cat: "Collier Homme", price: 25, image: "https://i.imgur.com/FevCEhH.jpg" },
+      { name: "Collier pour Homme ", cat: "Collier Homme", price: 20.99, image: "https://i.imgur.com/YdC7YYj.jpg" },
+      { name: "Collier  pour Homme ", cat: "Collier Homme", price: 11, image: "https://i.imgur.com/b2TrL54.jpg" },
+
+      // =============================================
+      // COLLIERS FEMME
+      // =============================================
+      { name: "Collier  pour Femme ", cat: "Collier Femme", price: 10, image: "https://i.imgur.com/gsBvpun.jpg" },
+      { name: "Collier pour  Femme ", cat: "Collier Femme", price: 11.99, image: "https://i.imgur.com/za5kDSi.jpg" },
+      { name: "Collier  pour Femme ", cat: "Collier Femme", price: 11.99, image: "https://i.imgur.com/zyjgdcx.jpg" },
+      { name: "Collier pour  Femme ", cat: "Collier Femme", price: 10, image: "https://i.imgur.com/JuA6dp3.jpg" },
+      { name: "Collier  pour Femme ", cat: "Collier Femme", price: 11.99, image: "https://i.imgur.com/zjAmo8U.jpg" },
+      { name: "Collier  pour Femme ", cat: "Collier Femme", price: 10 , image: "https://i.imgur.com/pQ0c91f.jpg" },
+      { name: "Collier  pour Femme ", cat: "Collier Femme", price: 13, image: "https://i.imgur.com/qCjx3hk.jpg" },
+      { name: "Collier Femme Lune", cat: "Collier Femme", price: 13, image: "https://i.imgur.com/ZTmsiXx.jpg" },
+      { name: "Collier Femme Lune", cat: "Collier Femme", price: 17 , image: "https://i.imgur.com/Qns7nz7.jpg" },
+      { name: "Collier Femme ", cat: "Collier Femme", price: 13, image: "https://i.imgur.com/ErMIwNG.jpg" },
+      { name: "Collier Femme Lune", cat: "Collier Femme", price: 10, image: "https://i.imgur.com/bfujvzM.jpg" },
+      { name: "Collier Femme Lune", cat: "Collier Femme", price: 13, image: "https://i.imgur.com/J1jVQ54.jpg" },
+      { name: "Collier Femme Lune", cat: "Collier Femme", price: 11, image: "https://i.imgur.com/S8t1ODd.jpg" },
+      { name: "Collier Femme Lune", cat: "Collier Femme", price: 14 , image: "https://i.imgur.com/aQvYCTK.jpg" },
+      { name: "Collier Femme Lune", cat: "Collier Femme", price: 14, image: "https://i.imgur.com/lIp4zeQ.jpg" },
+      { name: "Collier  pour Femme ", cat: "Collier Femme", price: 14, image: "https://i.imgur.com/OpVpESO.jpg" },
+      { name: "Collier Femme Lune", cat: "Collier Femme", price: 14, image: "https://i.imgur.com/fmgzVDd.jpg" },
+      { name: "Collier  pour Femme(LOT de deux colliers) ", cat: "Collier Femme", price: 20, image: "https://i.imgur.com/iVukX1u.jpg" },
+      { name: "Collier Femme Lot de 3 colliers ", cat: "Collier Femme", price: 25, image: "https://i.imgur.com/TXspiCN.jpg" },
+      { name: "Collier Femme lot de 2 colliers  ", cat: "Collier Femme", price: 21.99, image: "https://i.imgur.com/L3cStpI.jpg" },
+      { name: "collier", cat: "Collier Femme", price: 10, image: "https://i.imgur.com/rtLbHJn.jpg" },
+      { name: "collier", cat: "Collier Femme", price: 10, image: "https://i.imgur.com/IKNjUOV.jpg" },
+      { name: "collier ", cat: "Collier Femme", price: 10, image: "https://i.imgur.com/A9RcCvI.jpg" },
+      { name: "collier ", cat: "Collier Femme", price: 11, image: "https://i.imgur.com/Bww50Hm.jpg" },
+      { name: "collier ", cat: "Collier Femme", price: 10, image: "https://i.imgur.com/fRe6NOQ.jpg" },
+      { name: "collier ", cat: "Collier Femme", price: 11, image: "https://i.imgur.com/LOJF5j2.jpg" },
+      { name: "collier ", cat: "Collier Femme", price: 11, image: "https://i.imgur.com/sXCapls.jpg" },
+      { name: "collier ", cat: "Collier Femme", price: 17, image: "https://i.imgur.com/ygAj5mh.jpg" },
+
+
+
+      // =============================================
+      // BRACELETS
+      // =============================================
+      { name: "Bracelet mixte  ", cat: "Bracelet", price: 5, image: "https://i.imgur.com/rmK8BRs.jpg" },
+      { name: "Bracelet  mixte  ", cat: "Bracelet", price: 5, image: "https://i.imgur.com/uAdJuGf.jpg" },
+      { name: "Bracelet  mixte ", cat: "Bracelet", price: 5.99, image: "https://i.imgur.com/l6kEWYW.jpg" },
+      { name: "Bracelet mixte ", cat: "Bracelet", price: 5, image: "https://i.imgur.com/vJRRLVH.jpg" },
+      { name: "Bracelet (perles volcanique ) ", cat: "Bracelet", price: 7, image: "https://i.imgur.com/8C01hcr.jpg" },
+      { name: "Bracelet (perles volcanique )", cat: "Bracelet", price: 6 , image: "https://i.imgur.com/AORfHT0.jpg" },
+      { name: "Bracelet mixte ", cat: "Bracelet", price: 3.99, image: "https://i.imgur.com/wl2feaj.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 3.99, image: "https://i.imgur.com/MQKHdgT.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 4, image: "https://i.imgur.com/Sfo52xQ.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 3, image: "https://i.imgur.com/vWTg1Vh.jpg" },
+      { name: " lot de 2 Bracelets d'amitié ", cat: "Bracelet", price: 6, image: "https://i.imgur.com/NoFad2m.jpg" },
+      { name: "lot de 2 Bracelets d'amitié ", cat: "Bracelet", price: 7.99, image: "https://i.imgur.com/mpMPnAm.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 3, image: "https://i.imgur.com/okAYEMD.jpg" },
+      { name: "Lot de 2 Bracelets pour femme ", cat: "Bracelet", price: 5.50, image: "https://i.imgur.com/2xmnalY.jpg" },
+      { name: " Lot de 2 Bracelets pour femme ", cat: "Bracelet", price: 5.50, image: "https://i.imgur.com/jJhXtll.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 3, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Lot de 2 Bracelets pour femme ", cat: "Bracelet", price: 5.50, image: "https://i.imgur.com/nm3KysS.jpg" },
+      { name: " Lot de 4 Bracelets pour femme ", cat: "Bracelet", price: 11.50, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 3, image: "https://i.imgur.com/undefined.jpg" },
+      { name: " lot de 3 Bracelets pour femme ", cat: "Bracelet", price: 15, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Bracelet mixte  ", cat: "Bracelet", price: 5, image: "https://i.imgur.com/eEWK80W.jpg" },
+      { name: "Bracelet mixte  ", cat: "Bracelet", price: 5, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 3, image: "https://i.imgur.com/JiB5uyn.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 7, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 7, image: "https://i.imgur.com/7TXpQLb.jpg" },
+      { name: " lot de 2 Bracelets pour femme ", cat: "Bracelet", price: 10, image: "https://i.imgur.com/Q5lOMKH.jpg" },
+      { name: "Bracelet pour femme (la pièce ) ", cat: "Bracelet", price: 7, image: "https://i.https://imgur.com/4G53ZBi.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 7, image: "https://i.imgur.com/G1Rm1CZ.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 7, image: "https://i.imgur.com/TMMPSlV.jpg" },
+      { name: " le lot de 3 Bracelets pour femme ", cat: "Bracelet", price: 25, image: "https://i.imgur.com/nZyLHOm.jpg" },
+      { name: " Le lot de 2 Bracelets pour femme ", cat: "Bracelet", price: 10, image: "https://i.imgur.com/NSuFeq2.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 7, image: "https://i.imgur.com/yCFppX7.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 7, image: "https://i.imgur.com/iN0T2mg.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 3.99, image: "https://i.imgur.com/tG3yw65.jpg" },
+      { name: " lot de 3 Bracelets pour femme ", cat: "Bracelet", price: 10, image: "https://i.imgur.com/yFSWgzU.jpg" },
+      { name: "Bracelet mixte  (la pièce ) ", cat: "Bracelet", price: 3, image: "https://i.https://imgur.com/Rq2zIkp.jpg" },
+      { name: "Bracelet mixte  ", cat: "Bracelet", price: 3, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Bracelet mixte  ", cat: "Bracelet", price: 3, image: "https://i.imgur.com/lkGrHjO.jpg" },
+      { name: "lot de de 2 bracelets pour femme  ", cat: "Bracelet", price: 6, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 8, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 3.99, image: "https://i..jpg" },
+      { name: "Bracelet pour femme ", cat: "Bracelet", price: 3.99, image: "https://i..jpg" },
+
+      // =============================================
+      // PARURES
+      // =============================================
+      
+      { name: "Parure ", cat: "Parure", price: 20, image: "https://i.imgur.com/ZFJxvhe.jpg" },
+      { name: "Parure mixte ", cat: "Parure", price: 20, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Parure mixte ", cat: "Parure", price: 15, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Parure ", cat: "Parure", price: 17, image: "https://i./imgur.com/undefined.jpg" },
+      { name: "Parure ", cat: "Parure", price: 25, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Parure ", cat: "Parure", price: 17, image: "https://i.imgur.com/RUInGaJ.jpg" },
+      { name: "Parure ", cat: "Parure", price: 25, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Parure ", cat: "Parure", price: 13, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Parure ", cat: "Parure", price: 13, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Parure Étoile", cat: "Parure", price: 20, image: "https://i.imgur.com/t9gdPoe.jpg" },
+      { name: "Parure Étoile", cat: "Parure", price: 15, image: "https://i.imgur.com/undefined.jpg" },
+   
+
+
+      // =============================================
+      // BAYAS
+      // =============================================
+      { name: "la pièce", cat: "Baya", price: 10, image: "https://i.imgur.com/mC1zqbY.jpg" },
+      { name: "le lot ", cat: "Baya", price: 46, image: "https://i.imgur.com/EK1ZWY2.jpg" },
+      { name: "La pièce", cat: "Baya", price: 10, image: "https://i.imgur.com/tpkCS0k.jpg" },
+      { name: "Le lot ", cat: "Baya", price: 50, image: "https://i.imgur.com/u6AGuMx.jpg" },
+      { name: "Le lot", cat: "Baya", price: 30, image: "https://i.imgur.com/44Vn52O.jpg" },
+      { name: "La pièce ", cat: "Baya", price: 10, image: "https://i.imgur.com/GAl6EC3.jpg" },
+      { name: "La pièce ", cat: "Baya", price: 13, image: "https://i.imgur.com/OFckcAF.jpg" },
+      { name: "La pièce ", cat: "Baya", price: 10, image: "https://i.imgur.com/eO3X6JN.jpg" },
+      { name: "La pièce  ", cat: "Baya", price: 10, image: "https://i.imgur.com/HYqDc6M.jpg" },
+  
+      // =============================================
+      // CHEVILLÈRES
+      // =============================================
+      { name: "Chevillère ", cat: "Chevillère", price: 25, image: "https://i.imgur.com/tFK3ck4.jpg" },
+      { name: "Le lot  ", cat: "Chevillère", price: 7.99, image: "https://i.imgur.com/eAyyfVN.jpg" },
+      { name: "La pièce ", cat: "Chevillère", price: 4 , image: "https://i.imgur.com/rAKuwJM.jpg" },
+      { name: "Chevillère ", cat: "Chevillère", price: 4, image: "https://i.imgur.com/wvRxzDf.jpg" },
+      { name: "Chevillère Fleur", cat: "Chevillère", price: 7.99, image: "https://i.imgur.com/P1UTluf.jpg" },
+      
+
+      // =============================================
+      // ACCESSOIRES SACS
+      // =============================================
+      
+      { name: "Accessoire pour Sac ", cat: "Accessoire Sac", price: 13, image: "https://i.imgur.com/4gfZroa.jpg" },
+      { name: "Accessoire  pour les lunettes", cat: "Accessoire Sac", price: 10, image: "https://i.imgur.com/bcUb4u3.jpg" },
+      { name: "Accessoire pour les lunettes", cat: "Accessoire Sac", price: 10, image: "https://i.imgur.com/jOMEXVh.jpg" },
+      { name: "Accessoire pour  Sac", cat: "Accessoire Sac", price: 15, image: "https://i.imgur.com/8BTJt5p.jpg" },
+      { name: "Accessoire Sac ", cat: "Accessoire Sac", price: 12, image: "https://i.imgur.com/77S2OsU.jpg" },
+      { name: "Accessoire pour les lunettes ", cat: "Accessoire Sac", price: 10, image: "https://i.imgur.com/LoG7InL.jpg" },
+      { name: "Accessoire pour les lunettes  ", cat: "Accessoire Sac", price: 10, image: "https://i.imgur.com/H8yUXqh.jpg" },
+      { name: "Accessoire Sac ", cat: "Accessoire Sac", price: 12, image: "https://i.imgur.com/r1dIBpV.jpg" },
+      { name: "Accessoire Sac ", cat: "Accessoire Sac", price: 30, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Accessoire Sac ", cat: "Accessoire Sac", price: 25, image: "https://i.imgur.com/undefined.jpg" },
+      { name: "Accessoire Sac ", cat: "Accessoire Sac", price: 8.99, image: "https://i.imgur.com/WFeQW18.jpg" },
+      { name: "Accessoire Sac ", cat: "Accessoire Sac", price: 12, image: "https://i..jpg" },
+      { name: "Accessoire Sac ", cat: "Accessoire Sac", price: 12, image: "https://i..jpg" },
+      
+
+
+
+      // =============================================
+      // ACCESSOIRES PANTALONS
+      // =============================================
+      { name: "Accessoire Pantalon ", cat: "Accessoire Pantalon", price: 15, image: "https://i.imgur.com/4g50JKi.jpg" },
+      { name: "Accessoire Pantalon ", cat: "Accessoire Pantalon", price: 30, image: "https://i.imgur.com/56LuX6C.jpg" },
+      { name: "Accessoire Pantalon ", cat: "Accessoire Pantalon ", price: 20, image: "https://i.imgur.com/T8WOBWC.jpg" },
+      { name: "Accessoire ", cat: "Accessoire Pantalon", price: 10 , image: "https://i.imgur.com/7inp8Ri.jpg" },
+      { name: "Accessoire Pantalon Chaîne", cat: "Accessoire Pantalon", price: 15 , image: "https://i.imgur.com/gSrGzkQ.jpg" },
+
+      // =============================================
+      // ACCESSOIRES TÉLÉPHONES
+      // =============================================
+      { name: "Accessoire Téléphone ", cat: "Accessoire Téléphone", price: 8.99, image: "https://i.imgur.com/UJVHPWY.jpg" },
+      { name: "Accessoire Téléphone", cat: "Accessoire Téléphone", price: 6, image: "https://i.imgur.com/CMewKTo.jpg" },
+      { name: "Accessoire Téléphone ", cat: "Accessoire Téléphone", price: 6, image: "https://i.imgur.com/L4Qp2Dn.jpg" },
+      { name: "Accessoire Téléphone multicolore ", cat: "Accessoire Téléphone", price: 5.99, image: "https://i.imgur.com/HThmrT0.jpg" },
+      { name: "Accessoire Téléphone ", cat: "Accessoire Téléphone", price: 8.99, image: "https://i.imgur.com/DY356Bu.jpg" },
+      { name: "Accessoire Téléphone ", cat: "Accessoire Téléphone", price: 8.99, image: "https://i.imgur.com/Hj3IIvs.jpg" },
+      { name: "Accessoire Téléphone ", cat: "Accessoire Téléphone", price: 8.99, image: "https://i..jpg" },
+      { name: "Accessoire Téléphone ", cat: "Accessoire Téléphone", price: 8.99, image: "https://i..jpg" },
+      { name: "Accessoire Téléphone ", cat: "Accessoire Téléphone", price: 8.99, image: "https://i..jpg" },
+      { name: "Accessoire Téléphone ", cat: "Accessoire Téléphone", price: 8.99, image: "https://i..jpg" },
+
+      // =============================================
+      // ACCESSOIRES ÉPAULES
+      // =============================================
+      { name: "Accessoire Épaule ", cat: "Accessoire Épaule", price: 15, image: "https://i.imgur.com/UJ0Cuyx.jpg" },
+      { name: "Accessoire Épaule ", cat: "Accessoire Épaule", price: 25, image: "https://i.imgur.com/XPT8HmY.jpg" },
+
+      // =============================================
+      // ACCESSOIRES DOS
+      // =============================================
+      { name: "Accessoire Dos ", cat: "Accessoire Dos", price: 40, image: "https://i.imgur.com/9ha8ZAj.jpg" },
+      { name: "Accessoire Dos ", cat: "Accessoire Dos", price: 30, image: "https://i.imgur.com/m5FXAsJ.jpg" },
+      { name: "Accessoire Dos Perles", cat: "Accessoire Dos", price: 38, image: "https://i.imgur.com/wFCr1LM.jpg" },
+      { name: "Accessoire en Acier inoxidable ", cat: "Accessoire Dos", price: 80, image: "https://i.imgur.com/0XP5Rxd.jpg" },
+      { name: "Accessoire ", cat: "Accessoire Dos", price: 60, image: "https://i.imgur.com/zajLvW1.jpg" },
+      { name: "Accessoire", cat: "Accessoire Dos", price: 100, image: "https://i.imgur.com/jm7EhGi.jpg" },
+      
+
+      // =============================================
+      // ACCESSOIRES PERSONNALISÉS
+      // =============================================
+      { name: "Lot de 2 bracelets (lettres au choix )", cat: "Accessoire Personnalisé", price: 8, image: "https://i.imgur.com/mRHwtPp.jpg" },
+      { name: "Accessoire Personnalisé ", cat: "Accessoire Personnalisé", price: 5, image: "https://i.https://imgur.com/tUDwXib.jpg" },
+      { name: " Le lot de bracelets Personnalisé ", cat: "Accessoire Personnalisé", price: 5 , image: "https://i.imgur.com/4wnc65Q.jpg" },
+      { name: "Le lot de bracelets Personnalisé  ", cat: "Accessoire Personnalisé", price: 10, image: "https://i.imgur.com/KxuyrQF.jpg" },
+      { name: "Accessoire Personnalisé 2", cat: "Accessoire Personnalisé", price: 7, image: "https://i.imgur.com/GNDKzjH.jpg" },
+      { name: "Le lot de bracelets Personnalisé ", cat: "Accessoire Personnalisé", price: 10, image: "https://i.imgur.com/NvEv2Uw.jpg" },
+      { name: "Le lot de bracelets Personnalisé ", cat: "Accessoire Personnalisé", price: 7, image: "https://i.imgur.com/a8aFL1l.jpg" },
+      { name: "Le lot de bracelets Personnalisé ", cat: "Accessoire Personnalisé", price: 6 , image: "https://i.imgur.com/RsBp707.jpg" },
+    
+      
+    ];
+
+    // ------------------------------------------------------------
+    // STRUCTURE DES CATÉGORIES - CORRIGÉE !
+    // ------------------------------------------------------------
+    const categoryStructure = [
+      { name: "Collier Homme", type: "main" },
+      { name: "Collier Femme", type: "main" },
+      { name: "Bracelet", type: "main" },
+      { name: "Parure", type: "main" },
+      { name: "Baya", type: "main" },
+      { name: "Chevillère", type: "main" },
+      { 
+        name: "Autres accessoires", 
+        type: "parent",
+        subcategories: [
+          "Accessoire Sac",
+          "Accessoire Pantalon",
+          "Accessoire Téléphone",
+          "Accessoire Épaule",
+          "Accessoire Dos"
+        ]
+      },
+      { name: "Accessoire Personnalisé", type: "main", highlight: true }
+    ];
+
+    // ------------------------------------------------------------
+    // FONCTIONS
+    // ------------------------------------------------------------
+    
+    // Générer le menu de navigation
+    function generateNavMenu() {
+      const navMenu = document.getElementById('navMenu');
+      let navHtml = '';
+      
+      categoryStructure.forEach(cat => {
+        if (cat.type === 'main') {
+          navHtml += `<a href="#${cat.name.replace(/\s+/g, '-')}" class="nav-item">${cat.name}</a>`;
+        } else if (cat.type === 'parent') {
+          navHtml += `<a href="#${cat.name.replace(/\s+/g, '-')}" class="nav-item">${cat.name}</a>`;
+        }
+      });
+      
+      navMenu.innerHTML = navHtml;
+    }
+
+    // Fonction pour créer une carte produit
+    function createProductCard(product) {
+      const discountedPrice = product.price * (1 - DISCOUNT);
+      const usdPrice = (discountedPrice * TND_TO_USD).toFixed(2);
+      
+      return `
+        <div class="product-card">
+          <div class="discount-badge">-20%</div>
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}" loading="lazy">
+          </div>
+          <div class="product-name">${product.name}</div>
+          <div class="product-category">${product.cat}</div>
+          <div class="price-box">
+            <span class="old-price">${product.price.toFixed(2)} TND</span>
+            <span class="new-price">
+              ${discountedPrice.toFixed(2)} TND
+              <small>(${usdPrice} USD)</small>
+            </span>
+          </div>
+        </div>
+      `;
+    }
+
+    // Fonction pour afficher les produits
+    function renderProducts(containerId, productsList, itemsPerPage = 8) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      
+      let currentPage = 1;
+      
+      function displayProducts() {
+        const end = currentPage * itemsPerPage;
+        const productsToShow = productsList.slice(0, end);
+        
+        let html = '<div class="product-grid">';
+        productsToShow.forEach(product => {
+          html += createProductCard(product);
+        });
+        html += '</div>';
+        
+        if (end < productsList.length) {
+          html += `<button class="view-more-btn" onclick="loadMoreProducts('${containerId}', ${itemsPerPage})">Voir plus (${productsList.length - end} restants)</button>`;
+        }
+        
+        container.innerHTML = html;
+      }
+      
+      displayProducts();
+      window[`page_${containerId}`] = currentPage;
+    }
+
+    // Fonction pour charger plus de produits
+    window.loadMoreProducts = function(containerId, itemsPerPage) {
+      const currentPage = window[`page_${containerId}`] || 1;
+      window[`page_${containerId}`] = currentPage + 1;
+      
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      
+      const catName = containerId.replace('container-', '').replace(/-/g, ' ');
+      let filteredProducts;
+      
+      if (catName === 'Collier Homme' || catName === 'Collier Femme' || 
+          catName === 'Bracelet' || catName === 'Parure' || 
+          catName === 'Baya' || catName === 'Chevillère' || 
+          catName === 'Accessoire Personnalisé') {
+        filteredProducts = products.filter(p => p.cat === catName);
+      } else {
+        filteredProducts = products.filter(p => p.cat === catName);
+      }
+      
+      const end = window[`page_${containerId}`] * itemsPerPage;
+      const productsToShow = filteredProducts.slice(0, end);
+      
+      let html = '<div class="product-grid">';
+      productsToShow.forEach(product => {
+        html += createProductCard(product);
+      });
+      html += '</div>';
+      
+      if (end < filteredProducts.length) {
+        html += `<button class="view-more-btn" onclick="loadMoreProducts('${containerId}', ${itemsPerPage})">Voir plus (${filteredProducts.length - end} restants)</button>`;
+      }
+      
+      container.innerHTML = html;
+    };
+
+    // Générer toutes les sections
+    function generateSections() {
+      const container = document.getElementById('sections-container');
+      let html = '';
+      
+      categoryStructure.forEach(cat => {
+        if (cat.type === 'main') {
+          const catProducts = products.filter(p => p.cat === cat.name);
+          if (catProducts.length > 0) {
+            const highlightClass = cat.highlight ? ' style="background: #fff0e6; padding: 1rem; border-radius: 24px;"' : '';
+            html += `<div id="${cat.name.replace(/\s+/g, '-')}" class="category-section"${highlightClass}>`;
+            html += `<h2 class="category-title">${cat.name}</h2>`;
+            html += `<div id="container-${cat.name.replace(/\s+/g, '-')}"></div>`;
+            html += `</div>`;
+          }
+        } else if (cat.type === 'parent') {
+          html += `<div id="${cat.name.replace(/\s+/g, '-')}" class="category-section">`;
+          html += `<h2 class="category-title">${cat.name}</h2>`;
+          
+          cat.subcategories.forEach(subcat => {
+            const subcatProducts = products.filter(p => p.cat === subcat);
+            if (subcatProducts.length > 0) {
+              html += `<h3 class="subcategory-title">${subcat}</h3>`;
+              html += `<div id="container-${subcat.replace(/\s+/g, '-')}"></div>`;
+            }
+          });
+          
+          html += `</div>`;
+        }
+      });
+      
+      container.innerHTML = html;
+      
+      // Remplir chaque conteneur avec les produits
+      categoryStructure.forEach(cat => {
+        if (cat.type === 'main') {
+          const catProducts = products.filter(p => p.cat === cat.name);
+          if (catProducts.length > 0) {
+            renderProducts(`container-${cat.name.replace(/\s+/g, '-')}`, catProducts);
+          }
+        } else if (cat.type === 'parent') {
+          cat.subcategories.forEach(subcat => {
+            const subcatProducts = products.filter(p => p.cat === subcat);
+            if (subcatProducts.length > 0) {
+              renderProducts(`container-${subcat.replace(/\s+/g, '-')}`, subcatProducts);
+            }
+          });
+        }
+      });
+    }
+
+    // Initialiser la page
+    generateNavMenu();
+    generateSections();
+  </script>
+</body>
+</html>
