@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Cosy Boutique - Bijoux en perles artisanaux</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============================================
+           COSY BOUTIQUE - STYLES MODERNES
+           Palette : blanc pur, rose poudré #D4A5A5, vert sauge #A8C4A0
+        ============================================ */
+        :root {
+            --white-pure: #FFFFFF;
+            --white-soft: #FAFAFA;
+            --pink-soft: #D4A5A5;
+            --pink-dark: #c49494;
+            --pink-pale: #F5E9E6;
+            --green-soft: #A8C4A0;
+            --green-dark: #8fae86;
+            --gold-bead: #C9A24A;
+            --gold-bead-soft: #E4CE95;
+            --text-dark: #1A1A1A;
+            --text-light: #8A8A8A;
+            --border-light: #EEEEEE;
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 35px rgba(0,0,0,0.1);
+            --shadow-glow: 0 12px 30px rgba(212,165,165,0.25);
+            --radius-card: 20px;
+            --radius-btn: 40px;
+            --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white-pure);
+            color: var(--text-dark);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ===== SIGNATURE : LIGNE DE PERLES (fil à bijoux) ===== */
+        .bead-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 18px auto 0;
+        }
+
+        .bead-divider::before,
+        .bead-divider::after {
+            content: '';
+            height: 1px;
+            width: 36px;
+            background: linear-gradient(90deg, transparent, var(--border-light));
+        }
+
+        .bead-divider::after {
+            background: linear-gradient(90deg, var(--border-light), transparent);
+        }
+
+        .bead-divider span {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .bead-divider span:nth-child(2) { background: var(--pink-soft); }
+        .bead-divider span:nth-child(3) { background: var(--gold-bead); width: 9px; height: 9px; }
+        .bead-divider span:nth-child(4) { background: var(--green-soft); }
+
+        /* ===== RÉVÉLATION AU SCROLL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-stagger.in-view {
+            transition-delay: calc(var(--stagger-index, 0) * 60ms);
+        }
+
+        /* ===== HEADER AVEC MENU HAMBURGER ===== */
+        .header {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(14px) saturate(1.4);
+            -webkit-backdrop-filter: blur(14px) saturate(1.4);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: box-shadow 0.3s ease, padding 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-sm);
+            padding: 10px 24px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo span {
+            color: var(--pink-soft);
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible {
+            outline: 2px solid var(--gold-bead);
+            outline-offset: 3px;
+        }
+
+        /* Menu Desktop */
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--pink-soft);
+            transition: width 0.25s var(--ease-soft);
+        }
+
+        .nav-links a:hover {
+            color: var(--pink-soft);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.current::after {
+            width: 100%;
+        }
+
+        /* Menu Mobile */
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100vh;
+            background: var(--white-pure);
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            transition: left 0.3s ease;
+            padding: 80px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .mobile-menu.open {
+            left: 0;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--pink-soft);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-icon {
+            background: var(--pink-soft);
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cart-icon:hover {
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        .cart-icon:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        .cart-count {
+            background: white;
+            color: var(--pink-soft);
+            border-radius: 30px;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: transform 0.25s var(--ease-soft);
+        }
+
+        .cart-count.bump {
+            animation: bump 0.35s var(--ease-soft);
+        }
+
+        @keyframes bump {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        /* ===== SECTION VIDÉO / HERO ===== */
+        .video-section {
+            padding: 28px 20px 56px;
+            background: linear-gradient(180deg, var(--pink-pale) 0%, var(--white-soft) 55%);
+        }
+
+        .hero-eyebrow {
+            max-width: 1200px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--pink-dark);
+            font-weight: 600;
+            opacity: 0;
+            animation: heroFadeUp 0.8s var(--ease-soft) 0.1s forwards;
+        }
+
+        .hero-eyebrow .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gold-bead);
+        }
+
+        .video-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transform: scale(0.97);
+            animation: heroReveal 1s var(--ease-soft) 0.15s forwards;
+        }
+
+        @keyframes heroReveal {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            min-height: 320px;
+            max-height: 480px;
+            display: block;
+            object-fit: cover;
+        }
+
+        .hero-scrim {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: clamp(28px, 5vw, 48px);
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            opacity: 0;
+            animation: heroFadeUp 0.8s var(--ease-soft) 0.35s forwards;
+        }
+
+        .hero-title em {
+            font-style: normal;
+            color: var(--gold-bead-soft);
+        }
+
+        .hero-quote {
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            font-size: 15px;
+            margin-top: 10px;
+            opacity: 0;
+            animation: heroFadeUp 0.8s var(--ease-soft) 0.5s forwards;
+        }
+
+        .hero-cta {
+            position: relative;
+            overflow: hidden;
+            background: var(--pink-soft);
+            color: white;
+            border: none;
+            padding: 14px 34px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 22px;
+            cursor: pointer;
+            transition: transform 0.25s var(--ease-soft), box-shadow 0.25s var(--ease-soft);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            opacity: 0;
+            animation: heroFadeUp 0.8s var(--ease-soft) 0.65s forwards;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.28);
+            background: var(--pink-dark);
+        }
+
+        .hero-cta:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .hero-cta .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            transform: scale(0);
+            animation: rippleAnim 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleAnim {
+            to { transform: scale(3); opacity: 0; }
+        }
+
+        /* ===== SECTIONS GÉNÉRIQUES ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
+        }
+
+        .section-title .underline {
+            width: 60px;
+            height: 2px;
+            background: var(--pink-soft);
+            margin: 16px auto 0;
+        }
+
+        /* ===== FILTRES ===== */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            padding: 8px 20px;
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--pink-soft);
+            border-color: var(--pink-soft);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(212,165,165,0.3);
+        }
+
+        .filter-btn.active {
+            transform: none;
+        }
+
+        /* ===== GRILLE PRODUITS - CORRIGÉE ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card {
+            background: var(--white-soft);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow);
+            border-color: var(--pink-soft);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(135deg, #f5f0e8, #e8e0d5);
+            background-size: 200% 100%;
+            animation: imgShimmer 2.2s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-img:has(img[src]:not([src=""])) {
+            animation: none;
+        }
+
+        @keyframes imgShimmer {
+            0% { background-position: 0% 0; }
+            50% { background-position: 100% 0; }
+            100% { background-position: 0% 0; }
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;  
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-img .no-image {
+            font-size: 64px;
+            color: #b0a899;
+        }
+
+        .product-img {
+            position: relative;
+        }
+
+        .product-img::before {
+            content: '\2726 fait main';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(4px);
+            color: var(--pink-dark);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-radius: 20px;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            color: var(--pink-soft);
+            font-weight: 600;
+            font-size: 18px;
+            margin: 8px 0;
+        }
+
+        .product-price small {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: normal;
+        }
+
+        .btn-add {
+            background: transparent;
+            border: 1px solid var(--pink-soft);
+            color: var(--pink-soft);
+            padding: 10px;
+            border-radius: var(--radius-btn);
+            width: 100%;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-top: 12px;
+        }
+
+        .btn-add:hover {
+            background: var(--pink-soft);
+            color: white;
+        }
+
+        /* ===== SECTION NOUVEAUTÉS ===== */
+        .new-arrivals-section {
+            margin-bottom: 64px;
+        }
+
+        .new-arrivals-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .new-arrivals-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .new-arrivals-header p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .new-arrivals-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 6px 4px 18px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .new-arrivals-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .new-arrivals-scroll::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+            border-radius: 10px;
+        }
+
+        .new-card {
+            flex: 0 0 240px;
+            scroll-snap-align: start;
+            background: var(--white-soft);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .new-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow);
+            border-color: var(--pink-soft);
+        }
+
+        .new-card-img {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5f0e8, #e8e0d5);
+        }
+
+        .new-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .new-card:hover .new-card-img img {
+            transform: scale(1.06);
+        }
+
+        .badge-new {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--pink-soft);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(212,165,165,0.4);
+            z-index: 2;
+        }
+
+        .new-card-info {
+            padding: 16px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .new-card-name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .new-card-price {
+            color: var(--pink-soft);
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .new-card .btn-add {
+            margin-top: auto;
+        }
+
+        /* Carte "bientôt disponible" (colliers / sacs à venir) */
+        .coming-soon-card {
+            flex: 0 0 240px;
+            scroll-snap-align: start;
+            border-radius: var(--radius-card);
+            border: 1.5px dashed var(--pink-soft);
+            background: var(--pink-pale);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px 18px;
+            gap: 8px;
+        }
+
+        .coming-soon-card .icon {
+            font-size: 34px;
+            margin-bottom: 4px;
+            color: var(--pink-soft);
+        }
+
+        /* ===== MODALE DE CONFIRMATION DE COMMANDE ===== */
+        .order-success-content {
+            text-align: center;
+            padding: 40px 28px 32px;
+        }
+
+        .order-success-icon {
+            font-size: 52px;
+            color: var(--green-soft);
+            margin-bottom: 16px;
+        }
+
+        .order-success-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .order-success-content p {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .coming-soon-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .coming-soon-card p {
+            font-size: 12.5px;
+            color: var(--text-light);
+        }
+
+        .coming-soon-card .tag {
+            margin-top: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--pink-dark);
+            background: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .new-card, .coming-soon-card { flex-basis: 190px; }
+            .new-card-img { height: 190px; }
+        }
+
+        /* ===== SECTION PERSONNALISATION ===== */
+        .personalisation-models {
+            background: var(--white-soft);
+            border-radius: var(--radius-card);
+            padding: 48px 24px;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 28px;
+            margin-top: 20px;
+        }
+
+        .model-card {
+            background: var(--white-pure);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .model-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow);
+            border-color: var(--pink-soft);
+        }
+
+        .model-img {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5f0e8, #e8e0d5);
+        }
+
+        .model-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .model-card:hover .model-img img {
+            transform: scale(1.05);
+        }
+
+        .model-info {
+            padding: 16px;
+            text-align: center;
+        }
+
+        .model-name {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .model-subtitle {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .model-price {
+            color: var(--pink-soft);
+            font-weight: 600;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .btn-personnaliser {
+            background: var(--pink-soft);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: var(--radius-btn);
+            width: 100%;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-personnaliser:hover {
+            background: var(--pink-dark);
+            transform: scale(1.02);
+        }
+
+        /* ===== MODAL PERSONNALISATION ===== */
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .custom-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white-pure);
+            border-radius: 28px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-header {
+            background: var(--pink-soft);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 28px 28px 0 0;
+        }
+
+        .modal-header h3 {
+            font-weight: 500;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-model-img {
+            width: 100%;
+            height: 240px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .modal-model-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;  
+        }
+
+        .modal-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--pink-soft);
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        .char-counter {
+            font-size: 12px;
+            margin-top: 5px;
+            color: var(--text-light);
+        }
+
+        .char-counter.warning {
+            color: #e67e22;
+        }
+
+        .char-counter.danger {
+            color: #e74c3c;
+        }
+
+        .color-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .color-option {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .color-option.selected {
+            border-color: var(--text-dark);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .dynamic-price {
+            background: var(--white-soft);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .dynamic-price span {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--pink-soft);
+        }
+
+        .btn-add-cart {
+            background: var(--green-soft);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: var(--radius-btn);
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-add-cart:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
+        }
+
+        /* ===== MODALE PANIER ===== */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            background: var(--white-pure);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+            z-index: 1500;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-modal.open {
+            right: 0;
+        }
+
+        .cart-modal-header {
+            background: var(--pink-soft);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-modal-header h3 {
+            font-weight: 500;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .cart-items-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .cart-item-info {
+            flex: 2;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+        }
+
+        .cart-item-price {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-quantity button {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            background: white;
+            cursor: pointer;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .country-selector {
+            margin-bottom: 20px;
+        }
+
+        .country-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .country-option.selected {
+            border-color: var(--pink-soft);
+            background: var(--white-soft);
+        }
+
+        .cart-total {
+            border-top: 1px solid var(--border-light);
+            padding-top: 15px;
+            margin: 15px 0;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .btn-whatsapp {
+            background: var(--green-soft);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: var(--radius-btn);
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-whatsapp:hover {
+            opacity: 0.9;
+        }
+
+        .payment-note {
+            font-size: 11px;
+            text-align: center;
+            color: var(--text-light);
+            margin-top: 12px;
+        }
+
+        /* ===== CRÉATRICES ===== */
+        .creators-section {
+            background: linear-gradient(160deg, var(--white-soft) 0%, var(--pink-pale) 100%);
+            border-radius: var(--radius-card);
+            padding: 56px 24px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creators-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .creator-card {
+            background: var(--white-pure);
+            border-radius: 20px;
+            padding: 28px 24px;
+            width: 200px;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            transition: transform 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft);
+        }
+
+        .creator-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .creator-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--pink-soft), var(--gold-bead-soft));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 36px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--white-soft);
+            text-align: center;
+            padding: 44px 20px 32px;
+            color: var(--text-light);
+            font-size: 13px;
+            border-top: 1px solid var(--border-light);
+            margin-top: 60px;
+        }
+
+        .footer p:first-child {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            color: var(--text-dark);
+            letter-spacing: 0.01em;
+        }
+
+        .footer .bead-divider {
+            margin: 16px auto;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 20px;
+            background: var(--green-soft);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            z-index: 2001;
+            animation: slideInOut 2.5s ease forwards;
+            box-shadow: var(--shadow-md);
+        }
+
+        @keyframes slideInOut {
+            0% { opacity: 0; transform: translateX(-30px); }
+            15% { opacity: 1; transform: translateX(0); }
+            85% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(-30px); visibility: hidden; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 48px 20px;
+            }
+            .products-grid, .models-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            .creators-grid {
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 16px;
+            }
+            .header.scrolled {
+                padding: 8px 16px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .menu-btn {
+                display: block;
+            }
+            .cart-icon .cart-label {
+                display: none;
+            }
+            .cart-icon {
+                padding: 10px 14px;
+            }
+            .container {
+                padding: 40px 16px;
+            }
+            .section-title h2 {
+                font-size: 26px;
+            }
+            .products-grid, .models-grid {
+                gap: 16px;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .product-img, .model-img {
+                height: 200px;
+            }
+            .product-info, .model-info {
+                padding: 14px;
+            }
+            .video-container video {
+                min-height: 260px;
+                max-height: 340px;
+            }
+            .hero-title {
+                font-size: clamp(24px, 7vw, 34px);
+            }
+            .hero-scrim {
+                padding: 28px 18px;
+            }
+            .cart-modal {
+                max-width: 100%;
+            }
+            .creators-grid {
+                gap: 16px;
+            }
+            .creator-card {
+                width: 150px;
+                padding: 20px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid, .models-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .product-img, .model-img {
+                height: 170px;
+            }
+            .product-name {
+                font-size: 14px;
+            }
+            .product-price {
+                font-size: 15px;
+            }
+            .btn-add, .btn-personnaliser {
+                font-size: 13px;
+                padding: 9px;
+            }
+            .filters {
+                gap: 8px;
+            }
+            .filter-btn {
+                padding: 7px 14px;
+                font-size: 13px;
+            }
+            .hero-eyebrow {
+                font-size: 10px;
+            }
+            .modal-content {
+                width: 94%;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1320px;
+            }
+            .video-container {
+                max-width: 1320px;
+            }
+        }
+        /* ===== EFFET ZOOM INTERACTIF POUR LES IMAGES ===== */
+        .product-img,
+        .model-img {
+            position: relative;
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+
+        .product-img img,
+        .model-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-out;
+            transform-origin: center center;
+        }
+
+        @media (max-width: 768px) {
+            .product-img:active img,
+            .model-img:active img {
+                transform: scale(1.8);
+                transition: transform 0.2s ease;
+            }
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            background: var(--pink-soft);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top:hover {
+            background: var(--pink-dark);
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .back-to-top {
+                width: 44px;
+                height: 44px;
+                bottom: 20px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <a href="#" class="logo">COSY<span>.</span></a>
+    <div class="nav-actions">
+        <div class="nav-links">
+            <a href="#" class="nav-link" data-section="accueil">Accueil</a>
+            <a href="#" class="nav-link" data-section="boutique">Boutique</a>
+            <a href="#" class="nav-link" data-section="personnalisation">Personnalisation</a>
+        </div>
+        <button class="cart-icon" id="openCartBtn">
+            <i class="fas fa-bag-shopping"></i> <span class="cart-label">Panier</span> <span class="cart-count" id="cartCountDisplay">0</span>
+        </button>
+        <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+    </div>
+</header>
+
+<!-- Menu Mobile -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenuBtn">&times;</button>
+    <a href="#" class="mobile-nav-link" data-section="accueil">Accueil</a>
+    <a href="#" class="mobile-nav-link" data-section="boutique">Boutique</a>
+    <a href="#" class="mobile-nav-link" data-section="personnalisation">Personnalisation</a>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<!-- SECTION ACCUEIL -->
+<section id="section-accueil" class="video-section">
+    <p class="hero-eyebrow"><span class="dot"></span>Fait main &middot; perle après perle<span class="dot"></span></p>
+    <div class="video-container">
+        <video autoplay muted loop playsinline>
+            <source src="videos/bonnevideo.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+        <div class="hero-scrim">
+            <h1 class="hero-title">L'art des perles,<br><em>par deux sœurs</em></h1>
+            <p class="hero-quote">Tunisie &amp; RDC — une histoire, un fil, deux mains</p>
+            <button id="discoverBtn" class="hero-cta">
+                Découvrir nos créations
+            </button>
+        </div>
+    </div>
+</section>
+
+<main class="container" id="main-content">
+    <!-- SECTION NOUVEAUTÉS -->
+    <div class="new-arrivals-section" id="section-nouveautes">
+        <div class="new-arrivals-header">
+            <div>
+                <h2><i class="fas fa-gem"></i> Nouveautés</h2>
+                <p>Les dernières créations, tout juste arrivées</p>
+            </div>
+        </div>
+        <div class="new-arrivals-scroll" id="newArrivalsScroll"></div>
+    </div>
+
+    <!-- SECTION BOUTIQUE -->
+    <div id="section-boutique">
+        <div class="section-title">
+            <h2>Nos créations</h2>
+            <div class="bead-divider"><span></span><span></span><span></span></div>
+            <p style="margin-top: 12px; color: var(--text-light);">Bijoux en perles, faits main avec amour</p>
+        </div>
+
+        <div class="filters" id="filters">
+            <button class="filter-btn active" data-category="all">Tous</button>
+            <button class="filter-btn" data-category="collier-homme">Collier Homme</button>
+            <button class="filter-btn" data-category="collier-femme">Collier Femme</button>
+            <button class="filter-btn" data-category="bracelet">Bracelet</button>
+            <button class="filter-btn" data-category="parure">Parure</button>
+            <button class="filter-btn" data-category="baya">Baya</button>
+            <button class="filter-btn" data-category="chevillere">Chevillère</button>
+            <button class="filter-btn" data-category="autres">Autres</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
+
+    <!-- SECTION PERSONNALISATION -->
+    <div id="section-personnalisation" style="display: none;">
+        <div class="section-title">
+            <h2> Bracelets personnalisables </h2>
+            <div class="bead-divider"><span></span><span></span><span></span></div>
+            <p style="margin-top: 12px; color: var(--text-light);">Choisissez un modèle, puis personnalisez-le avec votre texte et votre couleur préférée</p>
+        </div>
+
+        <div class="personalisation-models">
+            <div class="models-grid" id="modelsGrid"></div>
+        </div>
+    </div>
+
+    <!-- SECTION CRÉATRICES -->
+    <div class="creators-section">
+        <div class="section-title">
+            <h2>Nos créatrices</h2>
+            <div class="bead-divider"><span></span><span></span><span></span></div>
+        </div>
+        <p style="max-width: 600px; margin: 0 auto; color: var(--text-light);">
+            "Derrière chaque perle, il y a une histoire. Derrière Cosy, il y a COCO & Destiny. 
+            Deux sœurs, une passion : créer des bijoux uniques, perle après perle."
+        </p>
+        <div class="creators-grid">
+            <div class="creator-card">
+                <div class="creator-avatar">🇹🇳</div>
+                <h4>Destiny</h4>
+                <p style="color: var(--text-light); font-size: 13px;">Tunisie</p>
+            </div>
+            <div class="creator-card">
+                <div class="creator-avatar">🇨🇩</div>
+                <h4>Coco</h4>
+                <p style="color: var(--text-light); font-size: 13px;">Kinshasa</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- MODALE PERSONNALISATION -->
+<div class="custom-modal" id="customModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Personnalisez votre bracelet</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-model-img" id="modalModelImg">
+                <img src="" alt="Modèle">
+            </div>
+            <div class="modal-price" id="modalBasePrice"></div>
+
+            <div class="form-group">
+                <label><i class="fas fa-pen"></i> Texte à inscrire (max 8 caractères)</label>
+                <input type="text" id="customText" placeholder="Ex: JASON, LOVE, SIS..." maxlength="15">
+                <div class="char-counter" id="charCounter">0 / 8 caractères</div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-palette"></i> Choisissez votre couleur</label>
+                <div class="color-picker" id="modalColorPicker">
+                    <div class="color-option" style="background: #ff4757;" data-color="Rouge"></div>
+                    <div class="color-option" style="background: #2ed573;" data-color="Vert"></div>
+                    <div class="color-option" style="background: #1e90ff;" data-color="Bleu"></div>
+                    <div class="color-option" style="background: #ffa502;" data-color="Orange"></div>
+                    <div class="color-option" style="background: #a55eea;" data-color="Violet"></div>
+                    <div class="color-option" style="background: #000000;" data-color="Noir"></div>
+                    <div class="color-option" style="background: #FFFFFF; border:1px solid #ddd;" data-color="Blanc"></div>
+                    <div class="color-option" style="background: #ff6b81;" data-color="Rose"></div>
+                    <div class="color-option" style="background: #00cec9;" data-color="Turquoise"></div>
+                </div>
+            </div>
+
+            <div class="dynamic-price">
+                Prix final : <span id="finalPrice">0.00 TND</span>
+            </div>
+
+            <button class="btn-add-cart" id="confirmAddToCart"><i class="fas fa-plus"></i> Ajouter au panier</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODALE PANIER -->
+<div class="cart-modal" id="cartModal">
+    <div class="cart-modal-header">
+        <h3><i class="fas fa-bag-shopping"></i> Mon panier</h3>
+        <button class="close-cart" id="closeCartBtn">&times;</button>
+    </div>
+    <div class="cart-items-list" id="cartItemsList">
+        <p style="text-align: center; color: var(--text-light);">Votre panier est vide</p>
+    </div>
+    <div class="cart-footer">
+        <div class="country-selector" id="countrySelector">
+            <div class="country-option" data-country="tunisia">
+                <span>🇹🇳</span> Tunisie <span style="color: var(--text-light); font-size: 12px;">(livraison 7 TND)</span>
+            </div>
+            <div class="country-option" data-country="kinshasa">
+                <span>🇨🇩</span> Kinshasa <span style="color: var(--text-light); font-size: 12px;">(livraison sur devis)</span>
+            </div>
+        </div>
+        <div class="cart-total" id="cartTotalDisplay">
+            Total: 0.00 TND (0.00 USD)
+        </div>
+        <button class="btn-whatsapp" id="checkoutWhatsAppBtn">
+            <i class="fas fa-bag-shopping"></i> Confirmer ma commande
+        </button>
+        <div class="payment-note">
+            <i class="fas fa-truck"></i> Paiement à la livraison
+        </div>
+    </div>
+</div>
+
+<!-- MODALE FORMULAIRE DE COMMANDE -->
+<div class="custom-modal" id="orderFormModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-address-card"></i> Vos coordonnées</h3>
+            <button class="close-modal" id="closeOrderFormBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Nom complet</label>
+                <input type="text" id="orderCustomerName" placeholder="Ex: Sarah Ben Ali">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> Téléphone</label>
+                <input type="tel" id="orderCustomerPhone" placeholder="Ex: 21XXXXXXXX">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-location-dot"></i> Ville</label>
+                <input type="text" id="orderCustomerCity" placeholder="Ex: Kinshasa, Sousse...">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-house"></i> Quartier / Adresse</label>
+                <input type="text" id="orderCustomerAddress" placeholder="Ex: Gombe, avenue du Commerce...">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-note-sticky"></i> Note (optionnel)</label>
+                <input type="text" id="orderCustomerNotes" placeholder="Précisions, point de repère...">
+            </div>
+            <button class="btn-add-cart" id="confirmSendOrder"><i class="fas fa-check"></i> Confirmer la commande</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODALE CONFIRMATION DE COMMANDE -->
+<div class="custom-modal" id="orderSuccessModal">
+    <div class="modal-content order-success-content">
+        <div class="order-success-icon"><i class="fas fa-circle-check"></i></div>
+        <h3>Commande bien reçue</h3>
+        <p>Merci ! Votre commande a été enregistrée. Notre équipe la prépare et vous recontactera très bientôt pour confirmer les détails de livraison.</p>
+        <button class="btn-add-cart" id="closeOrderSuccessBtn">Continuer mes achats</button>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>COSY BOUTIQUE — Be Cosy, Be Creative</p>
+    <div class="bead-divider"><span></span><span></span><span></span></div>
+    <p>© 2024 Cosy Boutique - Tous droits réservés</p>
+</footer>
+
+<!-- Bouton retour en haut -->
+<button id="backToTopBtn" class="back-to-top" aria-label="Retour en haut">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script>
+    // ============================================
+    // CONFIGURATION
+    // ============================================
+    const USD_RATE = 0.80;
+    const WHATSAPP_TUNISIA = "21654445378";
+    const WHATSAPP_KINSHASA = "21628788564";
+
+    // ===== SUPABASE =====
+    const SUPABASE_URL = "https://zshgffgllvbllqxrkhyl.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzaGdmZmdsbHZibGxxeHJraHlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY0ODc3OTQsImV4cCI6MjEwMjA2Mzc5NH0._nRd3D4syc0OikNoTCn6rdOtxL112ORbfphVsZG-s5s";
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const SHIPPING_TUNISIA_TND = 7;
+
+    // ===== VOTRE CLOUDINARY - DÉJÀ CONFIGURÉ AVEC VOTRE Cloud name "dihmwqw3h" =====
+    const CLOUDINARY_BASE_URL = "https://res.cloudinary.com/dihmwqw3h/image/upload/f_auto,q_auto/";
+
+    // ============================================
+    // CATEGORY LABELS
+    // ============================================
+    const CATEGORY_LABELS = {
+        "collier-homme": "Collier homme",
+        "collier-femme": "Collier femme",
+        "bracelet": "Bracelet",
+        "parure": "Parure",
+        "baya": "Baya",
+        "chevillere": "Chevillère",
+        "autres": "Autres",
+        "personnalise": "Bracelet personnalisé"
+    };
+
+    // ============================================
+    // LISTE DES PRODUITS BOUTIQUE - PRIX ET NOMS RESTAURÉS DEPUIS index vrai .html
+    // ============================================
+    const PRODUCTS = [
+        // Collier Femme
+        { id: "cf-001", name: "wave", category: "collier-femme", price: 8.00, image: "32442d86-ec62-40cd-bbee-238ad1d56889_uyo96r.jpg" },
+        { id: "cf-002", name: "Clair de lune", category: "collier-femme", price: 16.00, image: "b55f73b2-bcf8-41f0-b27c-50096c774556_wwbtnj.jpg" },
+        { id: "cf-003", name: "Forêt Mystique", category: "collier-femme", price: 10.00, image: "collier-femme-1_elynac.png" },
+        { id: "cf-004", name: "Kyoto", category: "collier-femme", price: 10.00, image: "Gemini_Generated_Image_spym5rspym5rspym_hii66x.png" },
+        { id: "cf-005", name: "Bambino", category: "collier-femme", price: 10.00, image: "Gemini_Generated_Image_952mrq952mrq952m_krfwit.png" },
+        { id: "cf-006", name: "C'est si bon", category: "collier-femme", price: 8.00, image: "Gemini_Generated_Image_l2g6kpl2g6kpl2g6_slxmw6.png" },
+        { id: "cf-007", name: "Kuro", category: "collier-femme", price: 8.00, image: "Gemini_Generated_Image_j7t31rj7t31rj7t3_yqpzqb.png" },
+        { id: "cf-008", name: "Ponyo", category: "collier-femme", price: 8.00, image: "Gemini_Generated_Image_b74pctb74pctb74p_akrqvf.png" },
+        { id: "cf-009", name: "Blanc Pétale", category: "collier-femme", price: 10.00, image: "WhatsApp_Image_2026-01-26_at_08.16.18_2_ncfpe3.jpg" },
+        { id: "cf-010", name: "Âmes Sœurs", category: "collier-femme", price: 15.00, image: "WhatsApp_Image_2026-01-26_at_08.16.18_4_z6tfdm.jpg" },
+        { id: "cf-011", name: "nuit doré", category: "collier-femme", price: 8.00, image: "WhatsApp_Image_2026-01-26_at_08.16.18_7_g1gd3p.jpg" },
+        { id: "cf-014", name: "Gigi", category: "collier-femme", price: 8.00, image: "WhatsApp_Image_2026-01-26_at_08.16.18_8_d4clo8.jpg" },
+        { id: "cf-015", name: "ancolie", category: "collier-femme", price: 8.00, image: "Gemini_Generated_Image_m6ey0em6ey0em6ey_zhxx3y.png" },
+        { id: "cf-016", name: "Capsule", category: "collier-femme", price: 8.00, image: "WhatsApp_Image_2026-01-26_at_08.16.18_10_kzpaih.jpg" },
+        { id: "cf-017", name: "Nuit d'amour", category: "collier-femme", price: 8.00, image: "WhatsApp_Image_2026-01-26_at_08.16.19_6_rz30a9.jpg" },
+        { id: "cf-019", name: "kuro", category: "collier-femme", price: 10.00, image: "Gemini_Generated_Image_v78idsv78idsv78i_zbisys.png" },
+        { id: "cf-020", name: "croissant de lune", category: "collier-femme", price: 10.00, image: "WhatsApp_Image_2026-01-26_at_08.16.19_7_uydpib.jpg" },
+        { id: "cf-021", name: "Apashe", category: "collier-femme", price: 10.00, image: "WhatsApp_Image_2026-01-26_at_08.34.42_omtif9.jpg" },
+        { id: "cf-022", name: "minimaliste etoile", category: "collier-femme", price: 10.40, image: "WhatsApp_Image_2026-01-26_at_08.34.45_1_vdrwrj.jpg" },
+        { id: "cf-023", name: "minimaliste cœur", category: "collier-femme", price: 10.00, image: "WhatsApp_Image_2026-01-26_at_08.34.45_tcfhsj.jpg" },
+        { id: "cf-024", name: "source", category: "collier-femme", price: 8.00, image: "WhatsApp_Image_2026-01-26_at_08.34.46_1_ad8qfn.jpg" },
+        { id: "cf-025", name: "kiki", category: "collier-femme", price: 10.00, image: "WhatsApp_Image_2026-01-26_at_08.34.46_3_lrkjm3.jpg" },
+        { id: "cf-026", name: "lot de deux colliers Ponyo", category: "collier-femme", price: 15.00, image: "WhatsApp_Image_2026-01-26_at_08.34.46_6_qetnyn.jpg" },
+        { id: "cf-027", name: "lot de deux Colliers bambino", category: "collier-femme", price: 15.00, image: "IMG_7813_ikvek4.jpg" },
+        { id: "cf-028", name: "mini", category: "collier-femme", price: 10.00, image: "IMG_7807_wluw4c.jpg" },
+        { id: "cf-029", name: "lot de trois Colliers Haramaya", category: "collier-femme", price: 24.00, image: "IMG_7814_y80bme.jpg" },
+        { id: "cf-030", name: "Âmes Sœurs rouge", category: "collier-femme", price: 15.00, image: "IMG_7810_pqz5mq.jpg" },
+        { id: "cf-031", name: "Âmes Sœurs bleu", category: "collier-femme", price: 15.00, image: "IMG_7812_dvcyjw.jpg" },
+        { id: "cf-032", name: "Âmes Sœurs noir", category: "collier-femme", price: 15.00, image: "IMG_7163_idmpgv.jpg" },
+        { id: "cf-033", name: "Âmes Sœurs sky", category: "collier-femme", price: 15.00, image: "IMG_9963_qyioec.jpg" },
+        { id: "cf-034", name: "lot de deux colliers Ming", category: "collier-femme", price: 15.00, image: "IMG_7816_aq3qpt.jpg" },
+
+        // Collier Homme
+        { id: "ch-001", name: "Sin (Dieu lunaire babylonien)", category: "collier-homme", price: 8.00, image: "PHOTO-2026-03-09-16-50-31_13_ev7sd4.jpg" },
+        { id: "ch-002", name: "Tsukuyomi", category: "collier-homme", price: 8.00, image: "PHOTO-2026-03-09-16-50-31_14_phr06y.jpg" },
+        { id: "ch-003", name: "Anubis", category: "collier-homme", price: 8.00, image: "PHOTO-2026-03-09-16-50-31_15_ob9tce.jpg" },
+        { id: "ch-004", name: "Apollon", category: "collier-homme", price: 10.00, image: "PHOTO-2026-03-09-16-50-31_16_ysh56z.jpg" },
+        { id: "ch-005", name: "sasuke", category: "collier-homme", price: 15.00, image: "PHOTO-2026-03-09-16-50-31_17_s2cmzs.jpg" },
+        { id: "ch-006", name: "Soma", category: "collier-homme", price: 10.00, image: "PHOTO-2026-03-09-16-50-31_18_y7tkgi.jpg" },
+        { id: "ch-007", name: "light yagami", category: "collier-homme", price: 15.00, image: "PHOTO-2026-03-09-16-50-31_19_xfh0mm.jpg" },
+        { id: "ch-008", name: "Tyr", category: "collier-homme", price: 12.00, image: "PHOTO-2026-03-09-16-50-31_20_wdismq.jpg" },
+        { id: "ch-009", name: "Eren", category: "collier-homme", price: 15.00, image: "PHOTO-2026-03-09-16-50-31_21_eyytii.jpg" },
+        { id: "ch-010", name: "Thor", category: "collier-homme", price: 18.00, image: "PHOTO-2026-03-09-16-50-31_22_c6dxd7.jpg" },
+        { id: "ch-011", name: "Borné", category: "collier-homme", price: 10.00, image: "PHOTO-2026-03-09-16-50-31_23_bzqcwb.jpg" },
+        { id: "ch-012", name: "Kora", category: "collier-homme", price: 8.00, image: "PHOTO-2026-03-09-16-50-31_24_he6zvr.jpg" },
+
+        // Bracelets
+        { id: "br-001", name: "La Foule", category: "bracelet", price: 4.50, image: "WhatsApp_Image_2026-01-24_at_06.46.51_2_vjrayl.jpg" },
+        { id: "br-002", name: "Ryu", category: "bracelet", price: 4.50, image: "WhatsApp_Image_2026-01-24_at_06.46.51_3_oe4tph.jpg" },
+        { id: "br-003", name: "Tigray", category: "bracelet", price: 4.50, image: "WhatsApp_Image_2026-01-24_at_06.46.51_byuxhr.jpg" },
+        { id: "br-004", name: "Mononoke", category: "bracelet", price: 4.50, image: "WhatsApp_Image_2026-01-24_at_06.46.51_1_mvjrju.jpg" },
+        { id: "br-005", name: "Je ne regrette rien", category: "bracelet", price: 7.00, image: "37981d9c-7c35-406f-9925-409e65cdf19e_x9didz.jpg" },
+        { id: "br-008", name: "Milord", category: "bracelet", price: 5.00, image: "f85e6155-0607-4fcb-8af7-8c08ecfc5533_nubzbc.jpg" },
+        { id: "br-009", name: "L'Hymne à l'Amour", category: "bracelet", price: 8.00, image: "1ec1b473-8840-4f80-af74-40553a6d13a5_mnktk8.jpg" },
+        { id: "br-010", name: "Hier encore", category: "bracelet", price: 4.00, image: "5c684375-b80f-44f6-8d0d-314fe39e9ba2_y5jupu.jpg" },
+        { id: "br-011", name: "kami", category: "bracelet", price: 9.00, image: "3a7da704-89d8-45a2-a632-042b9b2a4ac3_vo60tv.jpg" },
+        { id: "br-012", name: "Arrietty", category: "bracelet", price: 6.00, image: "8c2ca070-158e-40e9-9946-c70d638fd04b_wnfozg.jpg" },
+        { id: "br-013", name: "Susuwatari", category: "bracelet", price: 4.00, image: "90e7027f-12c2-4e5f-80f2-ceec289c13af_z0nl8t.jpg" },
+        { id: "br-014", name: "Yuan", category: "bracelet", price: 3.00, image: "f024e06f-162b-4061-9b5b-f3086963339a_wby8j3.jpg" },
+        { id: "br-015", name: "lot de deux bracelets omi", category: "bracelet", price: 7.00, image: "d90f347d-a334-4a5d-8019-f52b6ff9ab80_cqanf0.jpg" },
+        { id: "br-016", name: "lot de deux bracelets omo", category: "bracelet", price: 7.00, image: "f04a0aba-d749-429b-9ccc-4c3f50ad2eb6_zncj9r.jpg" },
+        { id: "br-021", name: "lot de 4 bracelets maya", category: "bracelet", price: 10.00, image: "fa66e78a-770f-4e89-a957-20f30bb02a7c_g6vr4l.jpg" },
+        { id: "br-027", name: "floral bleu", category: "bracelet", price: 5.00, image: "3773b119-a3e4-4c39-8526-f7eb399d2a60_cpfafr.jpg" },
+        { id: "br-028", name: "floral blanc", category: "bracelet", price: 5.00, image: "746d9cf5-a11f-41e1-adba-14be735f0e0b_ulikan.jpg" },
+        { id: "br-029", name: "floral bleu ancoli", category: "bracelet", price: 5.00, image: "3e1bd086-1c00-493f-bdf9-f02058a8be39_bkelih.jpg" },
+        { id: "br-030", name: "floral violet", category: "bracelet", price: 8.00, image: "9f9455cd-4666-4249-8ffe-0fe57d633a5c_azweuv.jpg" },
+        { id: "br-031", name: "Lot de deux bracelets floral Mixte", category: "bracelet", price: 10.00, image: "77e06f10-a1af-47c3-95e5-80f8e6530b8a_pniqse.jpg" },
+        { id: "br-032", name: "floral bonbon", category: "bracelet", price: 5.00, image: "044a1d60-ea58-4816-ad87-07fb4a7837a5_hkl9fn.jpg" },
+        { id: "br-033", name: "floral mixte (vendu par unité et non pas par lot de 3)", category: "bracelet", price: 5.00, image: "69155f1e-9dc4-4c02-972c-9dac58c4ade5_k0a984.jpg" },
+        { id: "br-034", name: "floral doux", category: "bracelet", price: 5.00, image: "f4b8b950-e2f7-4f6d-92d7-ca2d720f0bbe_lkpl7j.jpg" },
+        { id: "br-035", name: "floral violet", category: "bracelet", price: 5.00, image: "cf1df4af-39b8-4f1f-a1d3-beade46f17d7_rzpgbi.jpg" },
+        { id: "br-037", name: "Geisha", category: "bracelet", price: 5.00, image: "116e6409-ac3c-458e-bd46-0fbcc2a4692e_qy6nwo.jpg" },
+        { id: "br-038", name: "lot de 2 bracelets sakura", category: "bracelet", price: 7.00, image: "191769b8-d3c5-4e96-8989-31fca4767911_hqozjj.jpg" },
+        { id: "br-039", name: "Ashanti", category: "bracelet", price: 3.00, image: "dc66ef31-9eaa-49bf-9b8b-6fc317f516b7_nhw1be.jpg" },
+        { id: "br-041", name: "lot de 3 bracelets lotus", category: "bracelet", price: 3.00, image: "3411dda5-de3f-4b05-a841-a376a46affe0_i4iyp4.jpg" },
+
+        // Parures
+        { id: "pr-001", name: "Milady", category: "parure", price: 17.00, image: "ef84b59a-d20a-46dc-9357-9482bc95b238_tcwjju.jpg" },
+        { id: "pr-002", name: "alliance", category: "parure", price: 17.00, image: "846b98be-3171-487a-b500-b998389320a1_jf8sao.jpg" },
+        { id: "pr-003", name: "Starlight", category: "parure", price: 17.00, image: "99f3423a-4a46-4ec6-b4b0-050ce3e4ee17_ofb5lw.jpg" },
+        { id: "pr-004", name: "Scintillante", category: "parure", price: 15.00, image: "e6b01fe7-8c61-41cb-bc1a-6b51810f331a_znxiwa.jpg" },
+        { id: "pr-005", name: "Sirus", category: "parure", price: 13.00, image: "69345f8e-0d16-4403-9f08-d3bc5df0ab2a_ai5i0i.jpg" },
+        { id: "pr-006", name: "Sirus 1", category: "parure", price: 13.00, image: "9ad056a3-8ce0-4d25-ba16-9aa827161cb7_wygu3x.jpg" },
+        { id: "pr-007", name: "Bridgerton", category: "parure", price: 17.00, image: "7ba63baf-fa0c-4eb7-8742-ef524d67e9f2_y82cgz.jpg" },
+        { id: "pr-008", name: "if", category: "parure", price: 16.00, image: "3b54768f-e133-4d85-9a82-d90a2bd1bb15_cougzx.jpg" },
+        { id: "pr-010", name: "In love", category: "parure", price: 13.00, image: "b941aa22-f827-4051-b57f-6f1ea87fb799_ue3tqo.jpg" },
+        { id: "pr-011", name: "forever", category: "parure", price: 13.00, image: "998cbe77-886c-434e-8c70-f58066d3caff_comlpn.jpg" },
+        { id: "pr-012", name: "Amazing", category: "parure", price: 13.00, image: "9cb78f50-0f65-497c-aaba-7025288c46ec_a0mjdt.jpg" },
+        { id: "pr-013", name: "si tu n'as rien oublié", category: "parure", price: 15.00, image: "e020f329-8ebc-4827-bffd-42c075088478_kdpzao.jpg" },
+        { id: "pr-015", name: "Nefertiti", category: "parure", price: 13.00, image: "a14bdd5a-3700-4014-94e3-0d1259aee023_jiy7nj.jpg" },
+        { id: "pr-016", name: "Princesse", category: "parure", price: 13.00, image: "40b32363-834c-4b19-a221-a6d462dffa60_uudtbt.jpg" },
+        { id: "pr-017", name: "Nuit", category: "parure", price: 13.00, image: "fecec104-794d-48c9-8562-65dd5b9b4848_bmnxze.jpg" },
+
+        // Baya
+        { id: "ba-001", name: "Pour les hanches - Lot de 4", category: "baya", price: 35.00, image: "b16d1544-332c-4330-aebb-cd4b82146df4_dx5e8b.jpg" },
+        { id: "ba-002", name: "Pour les hanches(rouge) - Lot de 3", category: "baya", price: 25.00, image: "e665d8f9-1181-41a8-b43b-42dcedf78a7f_vxewn1.jpg" },
+        { id: "ba-003", name: "Pour les hanches (rose) - l'unité", category: "baya", price: 8.80, image: "13a6582a-3bf4-4178-812b-b40c88479553_h9afhp.jpg" },
+        { id: "ba-005", name: "Pour les hanches (bleu) - l'unité", category: "baya", price: 8.80, image: "6c6cbd20-161a-45d6-b2f1-cfe895693b91_adepxl.jpg" },
+        { id: "ba-007", name: "Pour les hanches - Chihiro", category: "baya", price: 8.80, image: "IMG_9961_jezywt.jpg" },
+        { id: "ba-009", name: "Pour les hanches (rose) - l'unité", category: "baya", price: 8.80, image: "f8c357a3-9437-4823-88a5-5b1b5ab9e885_m83h5j.jpg" },
+        { id: "ba-010", name: "Pour les hanches (violet)", category: "baya", price: 35.00, image: "9bba17bb-972a-4539-941f-e357c17551bf_mogxot.jpg" },
+        { id: "ba-012", name: "Pour les hanches - plage", category: "baya", price: 36.80, image: "e4dac8a1-0a65-4985-b5df-05e9f7ff727d_izqccc.jpg" },
+        { id: "ba-013", name: "Pour les hanches (noir) - l'unité", category: "baya", price: 8.80, image: "672b6721-3e44-41ae-ac72-36a653354cfa_m3wkkz.jpg" },
+        { id: "ba-014", name: "Pour les hanches (minimaliste rose)", category: "baya", price: 8.80, image: "IMG_9960_aixvhd.jpg" },
+        { id: "ba-015", name: "Pour les hanches (minimaliste turquoise)", category: "baya", price: 8.80, image: "IMG_9959_gtfbob.jpg" },
+        { id: "ba-016", name: "Pour les hanches (minimaliste rouge)", category: "baya", price: 8.80, image: "IMG_9958_k6j3nc.jpg" },
+        { id: "ba-017", name: "Pour les hanches(sun) - Lot de 3", category: "baya", price: 27.00, image: "IMG_9957_ohnaqw.jpg" },
+        { id: "ba-018", name: "Pour les hanches (noir) - Lot de 3", category: "baya", price: 28.00, image: "IMG_9955_go2fda.jpg" },
+
+        // Chevillères
+        { id: "chv-001", name: "lot de 2 chevilleres Bora-Bora", category: "chevillere", price: 7.50, image: "IMG_9941_mnmeak.jpg" },
+        { id: "chv-002", name: "Étoile des Caraïbes", category: "chevillere", price: 4.00, image: "IMG_9942_wkjyoo.jpg" },
+        { id: "chv-003", name: "Champ de Fleurs", category: "chevillere", price: 6.39, image: "IMG_9943_krx2jf.jpg" },
+        { id: "chv-004", name: "Rubis d'Été", category: "chevillere", price: 4.00, image: "IMG_9939_egthii.jpg" },
+        { id: "chv-005", name: "lot de 2 chevilleres Écume Bleue", category: "chevillere", price: 7.50, image: "IMG_9940_s6avms.jpg" },
+        { id: "chv-006", name: "Lilas Champêtre", category: "chevillere", price: 8.00, image: "IMG_9944_nbzimc.jpg" },
+        { id: "chv-007", name: "lot de 2 chevilleres Soleil d'Émeraude", category: "chevillere", price: 7.50, image: "IMG_9938_j2s5fj.jpg" },
+        { id: "chv-008", name: "Minimaliste Or & Noir", category: "chevillere", price: 3.00, image: "IMG_9937_txojtc.jpg" },
+        { id: "chv-009", name: "lot de 2 chevilleres Yin & Yang Céleste", category: "chevillere", price: 10.00, image: "IMG_9936_ozxzej.jpg" },
+        { id: "chv-010", name: "Symphonie de Perles", category: "chevillere", price: 12.00, image: "IMG_9934_pga2wc.jpg" },
+        { id: "chv-011", name: "lot de 3 chevilleres Reflets d'Orient", category: "chevillere", price: 7.50, image: "IMG_9935_h99z0t.jpg" },
+        { id: "chv-012", name: "Subtile Constance", category: "chevillere", price: 3.50, image: "IMG_9933_sqifwf.jpg" },
+        { id: "chv-013", name: "le lot de 3 chevilleres Rosée des Sables", category: "chevillere", price: 7.50, image: "IMG_9932_zq3uyv.jpg" },
+
+        // Autres accessoires
+        { id: "ac-001", name: "Bijou de Sac Nœud Perlé & Argent", category: "autres", price: 10.00, image: "4545495b-90e9-4c95-bf0d-5c8abc7f2278_herlei.jpg" },
+        { id: "ac-002", name: "Bijou de Sac Nœud Cristal Ambré", category: "autres", price: 8.00, image: "1fa0a176-f331-4c9d-bfe6-182a3cb4a136_puzhxe.jpg" },
+        { id: "ac-003", name: "Bijou de Sac Duo Fleurs Perlées", category: "autres", price: 8.00, image: "56f235b2-b2e9-4d40-ba4c-cf1adffeaf8e_vj7ytv.jpg" },
+        { id: "ac-004", name: "Bijou de Sac Nœud Subtil Rose & Perles", category: "autres", price: 7.00, image: "615979df-5bd4-49de-bd25-07db88c8a9da_znjmlz.jpg" },
+        { id: "ac-005", name: "Bijou de Sac Nœuds blanc & Perles", category: "autres", price: 8.00, image: "2a02a979-ccb9-4a0a-85bb-febb77a2ffd2_juvf7r.jpg" },
+        { id: "ac-007", name: "Bijou de Sac Argent & Cristal Bleu", category: "autres", price: 10.00, image: "e8da3d78-f59b-416c-830e-15a10120b472_mwq0xe.jpg" },
+        { id: "ac-010", name: "Chaîne de Sac Double Rang Perlé", category: "autres", price: 20.00, image: "6109593e-616e-48ce-93a4-8e0a6608c885_xldiju.jpg" },
+        { id: "ac-011", name: "Bijou de Sac Nœud fin en Perles Argentées", category: "autres", price: 10.00, image: "c17b809d-c83c-43b0-91e2-7ab6b79fa2bf_d1ytsb.jpg" },
+        { id: "ac-012", name: "Bijou de Sac Fleur Perlée Blanche", category: "autres", price: 7.00, image: "a67c7ed9-ff8e-44d5-ab79-29baae73a523_qwms00.jpg" },
+        { id: "ac-013", name: "Bijou de Sac Cascade Perlée & Chaînette", category: "autres", price: 20.00, image: "370825d7-663e-427a-a089-9841d038bbab_rqfpsv.jpg" },
+        { id: "ac-014", name: "Bijou de Sac Nœud Éclat de Cristal", category: "autres", price: 10.50, image: "7812a296-3aab-4228-8d6a-b4f2e2400fbd_ulotov.jpg" },
+
+        // Accessoires Téléphone
+        { id: "at-001", name: "Accessoire Téléphone N°01", category: "autres", price: 8.00, image: "d933ad36-a878-446a-9176-a7012b9fc219_boguwy.jpg" },
+        { id: "at-002", name: "Accessoire Téléphone N°02", category: "autres", price: 8.00, image: "IMG_0014_isolhz.jpg" },
+        { id: "at-003", name: "Accessoire Téléphone N°03", category: "autres", price: 8.00, image: "92cf4c5e-2f90-444f-ae19-6eaf5618aead_hp2jet.jpg" },
+        { id: "at-004", name: "Accessoire Téléphone N°04", category: "autres", price: 7.00, image: "233b7b0b-fa75-4e20-8af7-3ad6ea86de97_bckvbd.jpg" },
+        { id: "at-005", name: "Accessoire Téléphone N°05", category: "autres", price: 7.00, image: "IMG_0022_ujlp1b.jpg" },
+        { id: "at-006", name: "Accessoire Téléphone N°06", category: "autres", price: 7.00, image: "IMG_0021_eic2uk.jpg" },
+        { id: "at-007", name: "Accessoire Téléphone N°07", category: "autres", price: 7.00, image: "IMG_0013_sbntrt.jpg" },
+        { id: "at-008", name: "Accessoire Téléphone N°08", category: "autres", price: 10.00, image: "IMG_0012_swg4ve.jpg" },
+        { id: "at-009", name: "Accessoire Téléphone N°09", category: "autres", price: 8.00, image: "b4e29c63-3386-47b3-9eb9-d9536bf97e76_nl5sp3.jpg" },
+        { id: "at-010", name: "Accessoire Téléphone N°10", category: "autres", price: 10.00, image: "a33e2cd0-b223-48f6-8a92-58b7fde01889_yw7vap.jpg" },
+        { id: "at-011", name: "Accessoire Téléphone N°11", category: "autres", price: 8.00, image: "b95f5d1c-bd03-476c-850d-82108a59ec3c_yh3cdx.jpg" },
+        { id: "at-012", name: "Accessoire Téléphone N°12 (vendu par unité)", category: "autres", price: 10.00, image: "a7cd30fc-2a0f-446e-938e-49aa73475191_dcuad7.jpg" },
+        { id: "at-013", name: "Accessoire Téléphone N°13 (vendu par unité)", category: "autres", price: 8.00, image: "IMG_0020_zghtej.jpg" },
+        { id: "at-014", name: "Accessoire Téléphone N°14 (vendu par unité)", category: "autres", price: 8.00, image: "IMG_0019_f0vmkv.jpg" },
+        { id: "at-015", name: "Accessoire Téléphone N°15", category: "autres", price: 8.00, image: "IMG_0017_cquw92.jpg" },
+        { id: "at-016", name: "Accessoire Téléphone N°16", category: "autres", price: 8.00, image: "IMG_0018_oqmemz.jpg" },
+        { id: "at-017", name: "Accessoire ecouteur N°17", category: "autres", price: 10.00, image: "IMG_0029_inblto.jpg" },
+        { id: "at-018", name: "Accessoire Téléphone N°18", category: "autres", price: 8.00, image: "IMG_0016_v0xoi3.jpg" },
+        { id: "at-019", name: "Accessoire Téléphone N°19", category: "autres", price: 8.00, image: "IMG_0015_ecvgvh.jpg" },
+        { id: "at-020", name: "Accessoire ecouteur N°20", category: "autres", price: 10.00, image: "IMG_0025_gg9mph.jpg" },
+        { id: "at-021", name: "Accessoire ecouteur N°21", category: "autres", price: 10.00, image: "IMG_0026_xnlm9x.jpg" },
+        { id: "at-022", name: "Accessoire ecouteur N°22", category: "autres", price: 10.00, image: "IMG_0028_xxj8xn.jpg" },
+        { id: "at-023", name: "Accessoire ecouteur N°23", category: "autres", price: 10.00, image: "IMG_0027_yqiwyd.jpg" },
+        { id: "at-024", name: "Accessoire ecouteur N°24", category: "autres", price: 5.00, image: "IMG_0024_pmul5f.jpg" },
+        { id: "at-025", name: "Accessoire ecouteur N°25", category: "autres", price: 20.00, image: "IMG_0032_th5lns.jpg" },
+        { id: "at-026", name: "Accessoire ecouteur N°26", category: "autres", price: 5.00, image: "IMG_0023_wrpuu4.jpg" },
+        { id: "at-027", name: "Accessoire ecouteur N°27", category: "autres", price: 18.00, image: "IMG_0031_itsfxl.jpg" },
+        { id: "at-028", name: "Accessoire ecouteur N°28", category: "autres", price: 30.00, image: "IMG_0030_yfobm4.jpg" },
+        { id: "at-029", name: "Accessoire Téléphone N°29", category: "autres", price: 35.00, image: "IMG_0009_alhpqv.jpg" },
+        { id: "at-030", name: "Accessoire Téléphone N°30", category: "autres", price: 20.00, image: "IMG_0008_udqycu.jpg" },
+        { id: "at-031", name: "Accessoire Téléphone N°31", category: "autres", price: 20.00, image: "IMG_0010_d7ra4c.jpg" },
+
+        // Accessoires épaule
+        { id: "ae-001", name: "Accessoire épaule N°01", category: "autres", price: 20.00, image: "c710953b-0260-441d-b9cb-8d310802b21e_ztmgfw.jpg" },
+        { id: "ae-002", name: "Accessoire épaule N°02", category: "autres", price: 20.00, image: "19a95dcc-3731-4676-9150-47b10f1f5a86_oq5m0q.jpg" },
+        { id: "ae-003", name: "Accessoire épaule N°03", category: "autres", price: 20.00, image: "3fcb3d9b-a5bb-4d40-b171-d31fadeecf5f_zxmtap.jpg" },
+
+        // Autres accessoires divers
+        { id: "ad-003", name: "Bijou de Corps N°01 – Cascade Perléee", category: "autres", price: 36.00, image: "837e4072-e7dc-4b9f-800a-273fe1e8751a_j9xgma.jpg" },
+        { id: "ad-004", name: "Bijou de Corps N°02 – Éclat Central", category: "autres", price: 60.00, image: "7f938c23-d0a1-4f5a-8db1-bbf1f26163e6_rc31mh.jpg" },
+        { id: "ad-005", name: "Bijou de Décolleté N°03 – Éclat Discret", category: "autres", price: 26.00, image: "e516950e-8faf-41a8-843e-529ae484318d_xhrmaj.jpg" },
+        { id: "ad-006", name: "Bijou de Corps N°04 – Cascade Dorée", category: "autres", price: 50.00, image: "8e1b3039-8d9e-433f-ab09-c17af1023fb6_ywbwxz.jpg" },
+        { id: "ad-007", name: "Bijou de Dos N°05 – Ligne Perlée & Goutte", category: "autres", price: 10.00, image: "c187516d-55a4-4fe5-8279-91b376e0863f_k6bgqo.jpg" },
+        { id: "ad-008", name: "Bijou de Dos N°06 – Drapé Majestueux", category: "autres", price: 35.00, image: "53a8e601-44e3-47e5-9d7c-e653bc68500f_jzvst3.jpg" },
+
+        // Accessoires pantalon
+        { id: "ap-001", name: "Accessoire pantalon N°01", category: "autres", price: 8.00, image: "09ab6640-ce41-4c58-92b6-f640caf8ad99_taucfh.jpg" },
+        { id: "ap-002", name: "Accessoire pantalon N°02", category: "autres", price: 16.00, image: "f26243ba-8b09-4738-8b1c-39b6a72af4ae_wtusxj.jpg" },
+        { id: "ap-003", name: "Accessoire pantalon N°03", category: "autres", price: 20.00, image: "539a0ffb-7433-47bf-a988-edf34a535336_qibrxq.jpg" },
+        { id: "ap-004", name: "Accessoire pantalon N°04", category: "autres", price: 15.00, image: "e6d73ac3-24ac-4bf7-919c-63e4217de9f0_orlgzs.jpg" },
+        { id: "ap-005", name: "Accessoire pantalon N°05", category: "autres", price: 5.00, image: "5678a831-0eb2-4585-b035-6096fa49c02c_mfjdcp.jpg" },
+        { id: "ap-006", name: "Accessoire pantalon N°06", category: "autres", price: 8.00, image: "890bc78b-f066-44ba-b46f-18ea9af9e0a2_lmxftm.jpg" },
+
+        // ===== NOUVEAUTÉS (bracelets à breloques) =====
+        { id: "br-nouv-001", name: "Marguerite & Coccinelle", category: "bracelet", price: 6.00, image: "braceletmargueritecoccinelle.jpg", localImage: true, isNew: true },
+        { id: "br-nouv-002", name: "Chat & Cœur", category: "bracelet", price: 6.00, image: "braceletchatcoeur.jpg", localImage: true, isNew: true },
+        { id: "br-nouv-003", name: "Piment & Fraise", category: "bracelet", price: 6.00, image: "braceletpimentfraise.jpg", localImage: true, isNew: true },
+        { id: "br-nouv-004", name: "Coquillage & Étoile de mer", category: "bracelet", price: 6.00, image: "braceletcoquillageetoile.jpg", localImage: true, isNew: true }
+    ];
+
+    // ============================================
+    // MODÈLES PERSONNALISABLES
+    // ============================================
+    const PERSONALISATION_MODELS = [
+        { id: 1, name: "JASON", price: 5.00, image: "jason_qm6cpr.jpg", subtitle: "Be Cosy !" },
+        { id: 3, name: "SIS et Bro", price: 9.00, image: "sis_w2emr4.jpg", subtitle: "vendu par lot de deux bracelets" },
+        { id: 6, name: "SARAH", price: 9.00, image: "sarah_mfjwhg.jpg", subtitle: "Sisters forever" },
+        { id: 7, name: "ZOE", price: 6.5, image: "WhatsApp_Image_2026-01-26_at_12.44.30_2_qdd2yl.jpg", subtitle: "Love & Friendship" },
+        { id: 13, name: "M J ", price: 8.00, image: "IMG_9965_lla3hm.jpg", subtitle: "(vendu par lot de 2 bracelets)" },
+        { id: 14, name: "HOPE LOVE", price: 5.00, image: "IMG_9966_agrkup.jpg", subtitle: "En ACIER INOXIDABLE et vendu par unité" },
+        { id: 15, name: "RANDOM", price: 4.00, image: "IMG_9967_aixvxc.jpg", subtitle: "(vendu par unité)" },
+        { id: 16, name: "A V M", price: 5.00, image: "IMG_9968_rbrukz.jpg", subtitle: "(vendu par unité)" },
+        { id: 18, name: "RANDOM 2", price: 4.00, image: "IMG_9973_tml9yv.jpg", subtitle: "(vendu par unité)" },
+        { id: 19, name: "M et A", price: 8.00, image: "IMG_9974_drfszw.jpg", subtitle: "(vendu par lot de 2 bracelets)" },
+        { id: 20, name: "MAMA", price: 4.00, image: "IMG_9975_ghzaze.jpg", subtitle: "(vendu par unité)" },
+        { id: 21, name: "BRIDE", price: 8.00, image: "IMG_9976_ty2ju8.jpg", subtitle: "Love & Friendship" },
+        { id: 23, name: "ARGENTÉ", price: 5.00, image: "IMG_9978_shp295.jpg", subtitle: "EN ACIER INOXIDABLE" },
+        { id: 24, name: "DORÉ", price: 5.00, image: "IMG_9979_pa8p32.jpg", subtitle: "EN ACIER INOXIDABLE" },
+        { id: 25, name: "Remember rouge", price: 10.00, image: "IMG_9981_hsfeeb.jpg", subtitle: "(le lot de deux bracelet)" },
+        { id: 26, name: "Remember noir", price: 4.00, image: "IMG_9980_xlgo96.jpg", subtitle: "(vendu par unité)" },
+        { id: 27, name: "lot de deux Bracelets Yin Yang", price: 9.00, image: "IMG_9982_f6rib4.jpg", subtitle: "EN ACIER INOXIDABLE" },
+        { id: 28, name: "white", price: 4.00, image: "IMG_9983_xwb6on.jpg", subtitle: "(vendu par unité)" }
+    ];
+
+    // ============================================
+    // FONCTION POUR OBTENIR L'URL COMPLÈTE CLOUDINARY
+    // ============================================
+    function getImageUrl(imageName, isLocal = false) {
+        if (!imageName) return "";
+        if (isLocal) return imageName;
+        return CLOUDINARY_BASE_URL + imageName;
+    }
+
+    // ============================================
+    // PANIER
+    // ============================================
+    let cart = JSON.parse(localStorage.getItem('cosyCart')) || [];
+    let selectedCountry = localStorage.getItem('cosyCountry') || null;
+
+    function saveCart() {
+        localStorage.setItem('cosyCart', JSON.stringify(cart));
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.querySelectorAll('.cart-count').forEach(el => el.textContent = count);
+        
+        const container = document.getElementById('cartItemsList');
+        if (cart.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: var(--text-light);">Votre panier est vide</p>';
+        } else {
+            container.innerHTML = cart.map((item, idx) => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price.toFixed(2)} TND (${(item.price * USD_RATE).toFixed(2)} USD)</div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button onclick="changeQuantity(${idx}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQuantity(${idx}, 1)">+</button>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${idx})"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+        updateTotals();
+    }
+
+    function updateTotals() {
+        let subtotalTND = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        let subtotalUSD = subtotalTND * USD_RATE;
+        let shippingTND = 0;
+        let totalTND = subtotalTND;
+        
+        if (selectedCountry === 'tunisia') {
+            shippingTND = SHIPPING_TUNISIA_TND;
+            totalTND = subtotalTND + shippingTND;
+        }
+        
+        let totalUSD = totalTND * USD_RATE;
+        
+        let totalDisplay = '';
+        if (selectedCountry === 'tunisia') {
+            totalDisplay = `Total: ${totalTND.toFixed(2)} TND (${totalUSD.toFixed(2)} USD)`;
+        } else if (selectedCountry === 'kinshasa') {
+            totalDisplay = `Total: ${subtotalUSD.toFixed(2)} USD + frais de livraison`;
+        } else {
+            totalDisplay = `Total: ${subtotalTND.toFixed(2)} TND (${subtotalUSD.toFixed(2)} USD)`;
+        }
+        
+        document.getElementById('cartTotalDisplay').innerHTML = totalDisplay;
+    }
+
+    window.changeQuantity = function(idx, delta) {
+        const newQty = cart[idx].quantity + delta;
+        if (newQty <= 0) {
+            cart.splice(idx, 1);
+        } else {
+            cart[idx].quantity = newQty;
+        }
+        saveCart();
+    };
+
+    window.removeFromCart = function(idx) {
+        cart.splice(idx, 1);
+        saveCart();
+    };
+
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+
+    function addToCart(product) {
+        const existing = cart.find(item => item.id === product.id);
+        if (existing) {
+            existing.quantity++;
+        } else {
+            cart.push({ ...product, quantity: 1 });
+        }
+        saveCart();
+        showToast(`${product.name} ajouté au panier !`);
+    }
+
+    // ============================================
+    // AFFICHAGE PRODUITS BOUTIQUE
+    // ============================================
+    let currentFilter = 'all';
+
+    // ============================================
+    // AFFICHAGE NOUVEAUTÉS (carrousel accueil)
+    // ============================================
+    function renderNewArrivals() {
+        const scroll = document.getElementById('newArrivalsScroll');
+        if (!scroll) return;
+
+        const newProducts = PRODUCTS.filter(p => p.isNew);
+
+        const cardsHtml = newProducts.map(p => {
+            const priceUSD = (p.price * USD_RATE).toFixed(2);
+            const imageUrl = getImageUrl(p.image, p.localImage);
+            return `
+                <div class="new-card">
+                    <div class="new-card-img">
+                        <img src="${imageUrl}" alt="${p.name}">
+                        <span class="badge-new">Nouveau</span>
+                    </div>
+                    <div class="new-card-info">
+                        <div class="new-card-name">${p.name}</div>
+                        <div class="new-card-price">${p.price.toFixed(2)} TND <small style="font-weight:normal;color:var(--text-light);font-size:11px;">(${priceUSD} USD)</small></div>
+                        <button class="btn-add" onclick="addToCart({ id: '${p.id}', name: '${p.name.replace(/'/g, "\\'")}', price: ${p.price}, category: '${p.category}' })"><i class="fas fa-plus"></i> Ajouter au panier</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        const teasersHtml = `
+            <div class="coming-soon-card">
+                <div class="icon"><i class="fas fa-bag-shopping"></i></div>
+                <h4>Sacs Cosy</h4>
+                <p>Notre première ligne de sacs faits main</p>
+                <span class="tag">À venir</span>
+            </div>
+             <div class="coming-soon-card">
+                <div class="icon"><i class="fas fa-gem"></i></div>
+                <h4>Nouveaux colliers</h4>
+                <p>Une collection inédite arrive très bientôt</p>
+                <span class="tag">Bientôt disponible</span>
+            </div>
+        `;
+
+        scroll.innerHTML = cardsHtml + teasersHtml;
+    }
+
+    function displayProducts(category = 'all') {
+        const grid = document.getElementById('productsGrid');
+        const filtered = category === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === category);
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = '<div style="text-align:center; padding:40px;">Aucun produit dans cette catégorie</div>';
+            return;
+        }
+        
+        let productsHtml = filtered.map(p => {
+            const priceUSD = (p.price * USD_RATE).toFixed(2);
+            const imageUrl = getImageUrl(p.image, p.localImage);
+            const imageHtml = `<img src="${imageUrl}" alt="${p.name}" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23f0e6d2%22/%3E%3Cline x1=%2222%22 y1=%2255%22 x2=%2278%22 y2=%2255%22 stroke=%22%23C9A24A%22 stroke-width=%222%22/%3E%3Ccircle cx=%2234%22 cy=%2255%22 r=%229%22 fill=%22%23D4A5A5%22/%3E%3Ccircle cx=%2250%22 cy=%2255%22 r=%2211%22 fill=%22%23C9A24A%22/%3E%3Ccircle cx=%2266%22 cy=%2255%22 r=%229%22 fill=%22%23A8C4A0%22/%3E%3C/svg%3E'; this.style.objectFit='contain'; this.style.background='#f5f0e8';">`;
+            const newBadgeHtml = p.isNew ? `<span class="badge-new" style="position:absolute; top:12px; right:12px; left:auto;">Nouveau</span>` : '';
+            return `
+                <div class="product-card">
+                    <div class="product-img">${imageHtml}${newBadgeHtml}</div>
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">${p.price.toFixed(2)} TND <small>(${priceUSD} USD)</small></div>
+                        <button class="btn-add" onclick="addToCart({ id: '${p.id}', name: '${p.name.replace(/'/g, "\\'")}', price: ${p.price}, category: '${p.category}' })"><i class="fas fa-plus"></i> Ajouter au panier</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        if (category === 'bracelet') {
+            productsHtml += `
+                <div class="product-card custom-banner-card">
+                    <div class="product-img" style="background: linear-gradient(135deg, var(--pink-soft), var(--green-soft)); display: flex; align-items: center; justify-content: center;">
+                        <div style="text-align: center; padding: 20px; color: white;">
+                            <i class="fas fa-magic" style="font-size: 48px; margin-bottom: 15px; display: block;"></i>
+                            <h3 style="color: white; margin-bottom: 10px; font-family: 'Playfair Display';">Personnalise ton bracelet</h3>
+                            <p style="font-size: 14px;">Un prénom, une date, un symbole unique</p>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Crée ton bracelet unique</div>
+                        <div class="product-price">Dès 8 TND</div>
+                        <button class="btn-add" id="goToPersoBtn"><i class="fas fa-palette"></i> Je personnalise</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        grid.innerHTML = productsHtml;
+
+        if (category === 'bracelet') {
+            const persoBtn = document.getElementById('goToPersoBtn');
+            if (persoBtn) {
+                const newBtn = persoBtn.cloneNode(true);
+                persoBtn.parentNode.replaceChild(newBtn, persoBtn);
+                newBtn.addEventListener('click', () => {
+                    showSection('personnalisation');
+                    document.getElementById('cartModal').classList.remove('open');
+                    setTimeout(() => {
+                        document.getElementById('section-personnalisation').scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                });
+            }
+        }
+    }
+
+    // ============================================
+    // AFFICHAGE MODÈLES PERSONNALISABLES
+    // ============================================
+    function displayModels() {
+        const grid = document.getElementById('modelsGrid');
+        grid.innerHTML = PERSONALISATION_MODELS.map(model => {
+            const imageUrl = getImageUrl(model.image);
+            return `
+                <div class="model-card" data-model-id="${model.id}">
+                    <div class="model-img">
+                        <img src="${imageUrl}" alt="${model.name}" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23f0e6d2%22/%3E%3Cline x1=%2222%22 y1=%2255%22 x2=%2278%22 y2=%2255%22 stroke=%22%23C9A24A%22 stroke-width=%222%22/%3E%3Ccircle cx=%2234%22 cy=%2255%22 r=%229%22 fill=%22%23D4A5A5%22/%3E%3Ccircle cx=%2250%22 cy=%2255%22 r=%2211%22 fill=%22%23C9A24A%22/%3E%3Ccircle cx=%2266%22 cy=%2255%22 r=%229%22 fill=%22%23A8C4A0%22/%3E%3C/svg%3E'">
+                    </div>
+                    <div class="model-info">
+                        <div class="model-name">${model.name}</div>
+                        <div class="model-subtitle">${model.subtitle}</div>
+                        <div class="model-price">${model.price.toFixed(2)} TND</div>
+                        <button class="btn-personnaliser" data-model='${JSON.stringify(model)}'><i class="fas fa-gem"></i> Personnaliser</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        document.querySelectorAll('.btn-personnaliser').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const model = JSON.parse(btn.dataset.model);
+                openCustomModal(model);
+            });
+        });
+    }
+
+    // ============================================
+    // MODAL PERSONNALISATION
+    // ============================================
+    let currentCustomModel = null;
+
+    function openCustomModal(model) {
+        currentCustomModel = model;
+        
+        const imageUrl = getImageUrl(model.image);
+        document.getElementById('modalModelImg').innerHTML = `<img src="${imageUrl}" alt="${model.name}" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23f0e6d2%22/%3E%3Cline x1=%2222%22 y1=%2255%22 x2=%2278%22 y2=%2255%22 stroke=%22%23C9A24A%22 stroke-width=%222%22/%3E%3Ccircle cx=%2234%22 cy=%2255%22 r=%229%22 fill=%22%23D4A5A5%22/%3E%3Ccircle cx=%2250%22 cy=%2255%22 r=%2211%22 fill=%22%23C9A24A%22/%3E%3Ccircle cx=%2266%22 cy=%2255%22 r=%229%22 fill=%22%23A8C4A0%22/%3E%3C/svg%3E'">`;
+        document.getElementById('modalBasePrice').innerHTML = `Prix de base : ${model.price.toFixed(2)} TND`;
+        document.getElementById('customText').value = '';
+        document.getElementById('charCounter').innerHTML = '0 / 8 caractères';
+        document.getElementById('charCounter').className = 'char-counter';
+        
+        document.querySelectorAll('#modalColorPicker .color-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        
+        updateFinalPrice();
+        document.getElementById('customModal').classList.add('active');
+    }
+
+    function updateFinalPrice() {
+        if (!currentCustomModel) return;
+        
+        const text = document.getElementById('customText').value;
+        const charCount = text.length;
+        let finalPrice = currentCustomModel.price;
+        
+        if (charCount > 8) {
+            finalPrice = currentCustomModel.price + 1;
+        }
+        
+        document.getElementById('finalPrice').innerHTML = `${finalPrice.toFixed(2)} TND`;
+        
+        const counterDiv = document.getElementById('charCounter');
+        counterDiv.innerHTML = `${charCount} / 8 caractères`;
+        if (charCount > 8) {
+            counterDiv.className = 'char-counter danger';
+            counterDiv.innerHTML += ` (+1 TND)`;
+        } else if (charCount === 8) {
+            counterDiv.className = 'char-counter warning';
+        } else {
+            counterDiv.className = 'char-counter';
+        }
+    }
+
+    function addCustomToCart() {
+        if (!currentCustomModel) return;
+        
+        const text = document.getElementById('customText').value;
+        const selectedColor = document.querySelector('#modalColorPicker .color-option.selected');
+        
+        if (!text.trim()) {
+            showToast("Veuillez entrer un texte à inscrire");
+            return;
+        }
+        
+        if (!selectedColor) {
+            showToast("Veuillez choisir une couleur");
+            return;
+        }
+        
+        const charCount = text.length;
+        let finalPrice = currentCustomModel.price;
+        if (charCount > 8) {
+            finalPrice = currentCustomModel.price + 1;
+        }
+        
+        const colorName = selectedColor.dataset.color;
+        const productName = `Bracelet "${text}" - ${currentCustomModel.name} (${colorName})`;
+        
+        addToCart({
+            id: `custom-${currentCustomModel.id}-${Date.now()}`,
+            name: productName,
+            price: finalPrice,
+            category: 'personnalise'
+        });
+        
+        document.getElementById('customModal').classList.remove('active');
+        document.getElementById('customText').value = '';
+    }
+
+    // ============================================
+    // NAVIGATION
+    // ============================================
+    function showSection(sectionId) {
+        const accueilSection = document.getElementById('section-accueil');
+        const boutiqueSection = document.getElementById('section-boutique');
+        const persoSection = document.getElementById('section-personnalisation');
+        
+        if (sectionId === 'accueil') {
+            accueilSection.style.display = 'block';
+            boutiqueSection.style.display = 'none';
+            persoSection.style.display = 'none';
+        } else if (sectionId === 'boutique') {
+            accueilSection.style.display = 'none';
+            boutiqueSection.style.display = 'block';
+            persoSection.style.display = 'none';
+            displayProducts(currentFilter);
+        } else if (sectionId === 'personnalisation') {
+            accueilSection.style.display = 'none';
+            boutiqueSection.style.display = 'none';
+            persoSection.style.display = 'block';
+        }
+    }
+
+    // ============================================
+    // COMMANDE WHATSAPP
+    // ============================================
+    function openOrderForm() {
+        if (cart.length === 0) {
+            showToast("Votre panier est vide");
+            return;
+        }
+        if (!selectedCountry) {
+            showToast("Veuillez sélectionner votre pays de livraison");
+            return;
+        }
+        document.getElementById('orderFormModal').classList.add('active');
+    }
+
+    async function submitOrderForm() {
+        const name = document.getElementById('orderCustomerName').value.trim();
+        const phone = document.getElementById('orderCustomerPhone').value.trim();
+        const city = document.getElementById('orderCustomerCity').value.trim();
+        const address = document.getElementById('orderCustomerAddress').value.trim();
+        const notes = document.getElementById('orderCustomerNotes').value.trim();
+
+        if (!name || !phone || !city || !address) {
+            showToast("Merci de remplir nom, téléphone, ville et quartier");
+            return;
+        }
+
+        const submitBtn = document.getElementById('confirmSendOrder');
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Envoi en cours...";
+
+        let currency = "";
+        let subtotal = 0;
+
+        if (selectedCountry === "tunisia") {
+            currency = "TND";
+            subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        } else {
+            currency = "USD";
+            subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity * USD_RATE), 0);
+        }
+
+        const { error } = await supabaseClient.rpc('submit_order', {
+            p_country: selectedCountry,
+            p_currency: currency,
+            p_customer_name: name,
+            p_customer_phone: phone,
+            p_customer_city: city,
+            p_customer_address: address,
+            p_customer_notes: notes || null,
+            p_items: cart.map(item => ({
+                name: item.name,
+                quantity: item.quantity,
+                price: item.price,
+                category: CATEGORY_LABELS[item.category] || item.category || "Autres"
+            })),
+            p_subtotal: subtotal
+        });
+
+        if (error) {
+            console.error("Erreur Supabase:", error);
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Confirmer la commande";
+            showToast("Une erreur est survenue, merci de réessayer");
+            return;
+        }
+
+        document.getElementById('orderFormModal').classList.remove('active');
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Confirmer la commande";
+
+        cart = [];
+        updateCartUI();
+        document.getElementById('cartModal').classList.remove('open');
+        document.getElementById('orderSuccessModal').classList.add('active');
+    }
+
+    // ============================================
+    // INITIALISATION
+    // ============================================
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    const overlayMenu = document.getElementById('overlay');
+    
+    function openMobileMenu() {
+        mobileMenu.classList.add('open');
+        overlayMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        overlayMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    if (menuBtn) menuBtn.addEventListener('click', openMobileMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMobileMenu);
+    if (overlayMenu) overlayMenu.addEventListener('click', closeMobileMenu);
+    
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const section = link.dataset.section;
+            showSection(section);
+            closeMobileMenu();
+        });
+    });
+    
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const section = link.dataset.section;
+            showSection(section);
+        });
+    });
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.dataset.category;
+            displayProducts(currentFilter);
+        });
+    });
+    
+    document.querySelectorAll('.country-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            document.querySelectorAll('.country-option').forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            selectedCountry = opt.dataset.country;
+            localStorage.setItem('cosyCountry', selectedCountry);
+            updateTotals();
+        });
+        if (opt.dataset.country === selectedCountry) {
+            opt.classList.add('selected');
+        }
+    });
+    
+    const cartModal = document.getElementById('cartModal');
+    const openCartBtn = document.getElementById('openCartBtn');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const checkoutBtn = document.getElementById('checkoutWhatsAppBtn');
+    
+    if (openCartBtn) openCartBtn.addEventListener('click', () => cartModal.classList.add('open'));
+    if (closeCartBtn) closeCartBtn.addEventListener('click', () => cartModal.classList.remove('open'));
+    if (checkoutBtn) checkoutBtn.addEventListener('click', openOrderForm);
+
+    const orderFormModal = document.getElementById('orderFormModal');
+    const closeOrderFormBtn = document.getElementById('closeOrderFormBtn');
+    const confirmSendOrderBtn = document.getElementById('confirmSendOrder');
+    if (closeOrderFormBtn) closeOrderFormBtn.addEventListener('click', () => orderFormModal.classList.remove('active'));
+    if (orderFormModal) {
+        orderFormModal.addEventListener('click', (e) => {
+            if (e.target === orderFormModal) orderFormModal.classList.remove('active');
+        });
+    }
+    if (confirmSendOrderBtn) confirmSendOrderBtn.addEventListener('click', submitOrderForm);
+
+    const orderSuccessModal = document.getElementById('orderSuccessModal');
+    const closeOrderSuccessBtn = document.getElementById('closeOrderSuccessBtn');
+    if (closeOrderSuccessBtn) {
+        closeOrderSuccessBtn.addEventListener('click', () => orderSuccessModal.classList.remove('active'));
+    }
+    if (orderSuccessModal) {
+        orderSuccessModal.addEventListener('click', (e) => {
+            if (e.target === orderSuccessModal) orderSuccessModal.classList.remove('active');
+        });
+    }
+    
+    const discoverBtn = document.getElementById('discoverBtn');
+    if (discoverBtn) {
+        discoverBtn.addEventListener('click', () => {
+            showSection('boutique');
+            document.getElementById('cartModal').classList.remove('open');
+        });
+    }
+    if (cartModal) {
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) cartModal.classList.remove('open');
+        });
+    }
+    
+    const customModal = document.getElementById('customModal');
+    const closeModalBtn = document.querySelector('.close-modal');
+    const confirmAddBtn = document.getElementById('confirmAddToCart');
+    const customTextInput = document.getElementById('customText');
+    
+    if (closeModalBtn) closeModalBtn.addEventListener('click', () => customModal.classList.remove('active'));
+    if (customModal) {
+        customModal.addEventListener('click', (e) => {
+            if (e.target === customModal) customModal.classList.remove('active');
+        });
+    }
+    if (customTextInput) customTextInput.addEventListener('input', updateFinalPrice);
+    if (confirmAddBtn) confirmAddBtn.addEventListener('click', addCustomToCart);
+    
+    document.querySelectorAll('#modalColorPicker .color-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            document.querySelectorAll('#modalColorPicker .color-option').forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+        });
+    });
+    
+    renderNewArrivals();
+    displayProducts('all');
+    displayModels();
+    updateCartUI();
+    showSection('accueil');
+
+    function initImageZoom() {
+        const containers = document.querySelectorAll('.product-img, .model-img');
+        
+        containers.forEach(container => {
+            const img = container.querySelector('img');
+            if (!img) return;
+
+            container.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                
+                const moveX = (x - 0.5) * 30;
+                const moveY = (y - 0.5) * 30;
+                
+                img.style.transform = `scale(1.4) translate(${moveX}%, ${moveY}%)`;
+            });
+            
+            container.addEventListener('mouseleave', function() {
+                img.style.transform = 'scale(1) translate(0%, 0%)';
+            });
+            
+            container.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = this.getBoundingClientRect();
+                const x = (touch.clientX - rect.left) / rect.width;
+                const y = (touch.clientY - rect.top) / rect.height;
+                
+                const moveX = (x - 0.5) * 30;
+                const moveY = (y - 0.5) * 30;
+                
+                img.style.transform = `scale(1.5) translate(${moveX}%, ${moveY}%)`;
+            });
+            
+            container.addEventListener('touchend', function() {
+                img.style.transform = 'scale(1) translate(0%, 0%)';
+            });
+        });
+    }
+    
+    initImageZoom();
+    
+    const originalDisplayProducts = displayProducts;
+    window.displayProducts = function(category) {
+        originalDisplayProducts(category);
+        setTimeout(initImageZoom, 100);
+    };
+    displayProducts = window.displayProducts;
+    
+    const originalDisplayModels = displayModels;
+    window.displayModels = function() {
+        originalDisplayModels();
+        setTimeout(initImageZoom, 100);
+    };
+    displayModels = window.displayModels;
+
+    const backBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            backBtn.style.display = 'flex';
+        } else {
+            backBtn.style.display = 'none';
+        }
+    });
+    backBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
