@@ -600,6 +600,12 @@
             margin-bottom: 8px;
         }
 
+        .product-subtitle {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
         .product-price {
             color: var(--pink-soft);
             font-weight: 600;
@@ -931,7 +937,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.);
+            background: rgba(0,0,0,0.5);
             z-index: 2000;
             display: none;
             align-items: center;
@@ -2045,7 +2051,7 @@
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const SHIPPING_TUNISIA_TND = 7;
 
-    // ===== VOTRE CLOUDINARY - DÉJÀ CONFIGURÉ AVEC VOTRE Cloud name "dihmwqw3h" =====
+    // ===== CLOUDINARY =====
     const CLOUDINARY_BASE_URL = "https://res.cloudinary.com/dihmwqw3h/image/upload/f_auto,q_auto/";
 
     // ============================================
@@ -2063,28 +2069,23 @@
     };
 
     // ============================================
-    // COLLECTIONS (données) — chaque collection reste
-    // affichée en permanence, une fois ajoutée ici.
-    // Pour ajouter une nouvelle collection : ajouter une
-    // entrée ici + le champ collection:"slug" sur les produits.
+    // COLLECTIONS
     // ============================================
     const COLLECTIONS = {
         cross: {
             slug: "cross",
             name: "The Cross Collection",
             eyebrow: "Nouvelle collection",
-            quote: "Porter la croix, ce n’est pas prouver sa foi, mais garder près de soi le symbole de Celui en qui l’on croit. La Cross Collection : des noms inspirés de ses promesses et vérités.",
+            quote: "Porter la croix, ce n'est pas prouver sa foi, mais garder près de soi le symbole de Celui en qui l'on croit. La Cross Collection : des noms inspirés de ses promesses et vérités.",
             tileImage: "cross/image-vignette.jpg",
             backgroundVideo: "cross/video-cross.mp4",
             backgroundImage: "cross/image-vignette.jpg",
             overlayGradient: "linear-gradient(180deg, rgba(247,243,236,0.55) 0%, rgba(201,162,74,0.35) 45%, rgba(26,20,14,0.55) 100%)"
         }
-        // Prochaine collection : ajouter une entrée ici, ex:
-        // ocean: { slug:"ocean", name:"Ocean Collection", ... }
     };
 
     // ============================================
-    // LISTE DES PRODUITS BOUTIQUE - PRIX ET NOMS RESTAURÉS DEPUIS index vrai .html
+    // LISTE DES PRODUITS BOUTIQUE
     // ============================================
     const PRODUCTS = [
         // Collier Femme
@@ -2133,20 +2134,28 @@
         { id: "ch-010", name: "Thor", category: "collier-homme", price: 18.00, image: "PHOTO-2026-03-09-16-50-31_22_c6dxd7.jpg" },
         { id: "ch-011", name: "Borné", category: "collier-homme", price: 10.00, image: "PHOTO-2026-03-09-16-50-31_23_bzqcwb.jpg" },
         { id: "ch-012", name: "Kora", category: "collier-homme", price: 8.00, image: "PHOTO-2026-03-09-16-50-31_24_he6zvr.jpg" },
-        { id: "cr-001", name: "sacrifice" , category: "collier-homme", collection: "cross", price: 12.8, image: "cross/cross-01.png" , localImage: true,subtitle: "Collier en acier inoxydable" },
-        { id: "cr-002", name: "Justified", category: "collier-homme", collection: "cross", price: 12.8, image: "cross/cross-02.png", localImage: true ,subtitle: "Collier en acier inoxydable"},
-        { id: "cr-004", name: "Redemption", category: "collier-homme", collection: "cross", price: 10.00, image: "cross/cross-04.jpg", localImage: true },
-        { id: "cr-005", name: "Graceful", category: "collier-homme", collection: "cross", price: 10.00, image: "cross/cross-05.jpg", localImage: true },
-        { id: "cr-006", name: "New birth", category: "collier-homme", collection: "cross", price: 11.00, image: "cross/cross-06.jpg", localImage: true },
-        { id: "cr-007", name: "The price ", category: "collier-homme", collection: "cross", price: 10.00, image: "cross/cross-07.jpg", localImage: true },
-        { id: "cr-008", name: "Providence", category: "collier-homme", collection: "cross", price: 10.00, image: "cross/cross-08.jpg", localImage: true },
-        { id: "cr-009", name: "Faith", category: "collier-homme", collection: "cross", price: 12.8, image: "cross/cross-09.jpg", localImage: true ,subtitle: "Collier en acier inoxydable" },
-        { id: "cr-010", name: "Loves never Fails", category: "collier-homme", collection: "cross", price: 12.8, image: "cross/cross-10.jpg", localImage: true,subtitle: "Collier en acier inoxydable" },
-        { id: "cr-012", name: "Set free", category: "collier-homme", collection: "cross", price: 12.8, image: "cross/cross-12.jpg", localImage: true ,subtitle: "Collier en acier inoxydable"},
-        { id: "cr-013", name: "Reconciled", category: "collier-homme", collection: "cross", price: 12.8, image: "cross/cross-13.jpg", localImage: true,subtitle: "Collier en acier inoxydable" },
-         { id: "cr-013", name: "The refiner's fire", category: "collier-homme", collection: "cross", price: 12.8, image: "cross/the rifiner's fire.JPG", localImage: true,subtitle: "Collier en acier inoxydable" },
-        { id: "cr-013", name: "Chosen", category: "collier-homme", collection: "cross", price: 12.8, image: "cross/Worthy.JPG", localImage: true,subtitle: "Collier en acier inoxydable" },
 
+        // ===== THE CROSS COLLECTION =====
+        // Ces colliers apparaissent dans "Collier Homme" ET "Collier Femme"
+        { id: "cr-001", name: "Sacrifice", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/cross-01.png", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-002", name: "Justified", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/cross-02.png", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-004", name: "Redemption", category: ["collier-homme", "collier-femme"], collection: "cross", price: 10.00, image: "cross/cross-04.jpg", localImage: true },
+        { id: "cr-005", name: "Graceful", category: ["collier-homme", "collier-femme"], collection: "cross", price: 10.00, image: "cross/cross-05.jpg", localImage: true },
+        { id: "cr-006", name: "New Birth", category: ["collier-homme", "collier-femme"], collection: "cross", price: 11.00, image: "cross/cross-06.jpg", localImage: true },
+        { id: "cr-007", name: "The Price", category: ["collier-homme", "collier-femme"], collection: "cross", price: 10.00, image: "cross/cross-07.jpg", localImage: true },
+        { id: "cr-008", name: "Providence", category: ["collier-homme", "collier-femme"], collection: "cross", price: 10.00, image: "cross/cross-08.jpg", localImage: true },
+        { id: "cr-009", name: "Faith", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/cross-09.jpg", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-010", name: "Love Never Fails", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/cross-10.jpg", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-012", name: "Set Free", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/cross-12.jpg", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-013", name: "Reconciled", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/cross-13.jpg", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-014", name: "The Refiner's Fire", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/the rifiner's fire.JPG", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-015", name: "Chosen", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/Worthy.JPG", localImage: true, subtitle: "Collier en acier inoxydable" },
+
+        // ===== 4 NOUVEAUX COLLIERS CROSS (Imgur) =====
+        { id: "cr-016", name: "Redeemed", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "https://i.imgur.com/qEoiq4E.jpg", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-017", name: "Saved by Grace", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "https://i.imgur.com/zyacLbV.jpg", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-018", name: "Forgiven", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "https://i.imgur.com/9nmcxj6.jpg", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-019", name: "Blessed", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "https://i.imgur.com/dR7XcsZ.jpg", localImage: true, subtitle: "Collier en acier inoxydable" },
 
         // Bracelets
         { id: "br-001", name: "La Foule", category: "bracelet", price: 4.50, image: "WhatsApp_Image_2026-01-24_at_06.46.51_2_vjrayl.jpg" },
@@ -2180,7 +2189,11 @@
         { id: "br-039", name: "Ashanti", category: "bracelet", price: 3.00, image: "dc66ef31-9eaa-49bf-9b8b-6fc317f516b7_nhw1be.jpg" },
         { id: "br-041", name: "lot de 3 bracelets lotus", category: "bracelet", price: 3.00, image: "3411dda5-de3f-4b05-a841-a376a46affe0_i4iyp4.jpg" },
         { id: "br-044", name: "Bonbon", category: "bracelet", price: 5.00, image: "images/IMG_3211.JPG", localImage: true },
-         //{ id: "br-042", name: "Lunaris", category: "bracelet", price: 5.00, image: "IMG_3210.JPG" },
+
+        // ===== 3 NOUVEAUX BRACELETS (Imgur) =====
+        { id: "br-nouv-005", name: "Bracelet Perles Nacrées", category: "bracelet", price: 7.00, image: "https://i.imgur.com/naQ2G72.jpg", localImage: true, isNew: true },
+        { id: "br-nouv-006", name: "Bracelet Éclat Doré", category: "bracelet", price: 8.00, image: "https://i.imgur.com/eNVGARt.jpg", localImage: true, isNew: true },
+        { id: "br-nouv-007", name: "Bracelet Fleur Perlée", category: "bracelet", price: 9.00, image: "https://i.imgur.com/argiT7l.jpg", localImage: true, isNew: true },
 
         // Parures
         { id: "pr-001", name: "Milady", category: "parure", price: 17.00, image: "ef84b59a-d20a-46dc-9357-9482bc95b238_tcwjju.jpg" },
@@ -2225,9 +2238,9 @@
         { id: "chv-007", name: "lot de 2 chevilleres Soleil d'Émeraude", category: "chevillere", price: 7.50, image: "IMG_9938_j2s5fj.jpg" },
         { id: "chv-008", name: "Minimaliste Or & Noir", category: "chevillere", price: 3.00, image: "IMG_9937_txojtc.jpg" },
         { id: "chv-009", name: "lot de 2 chevilleres Yin & Yang Céleste", category: "chevillere", price: 10.00, image: "IMG_9936_ozxzej.jpg" },
-        { id: "chv-010", name: "Symphonie de Perles", category: "chevillere", price: 12.00, image: "IMG_9934_pga2wc.jpg",subtitle: "En acier inoxydable"},
+        { id: "chv-010", name: "Symphonie de Perles", category: "chevillere", price: 12.00, image: "IMG_9934_pga2wc.jpg", subtitle: "En acier inoxydable" },
         { id: "chv-011", name: "lot de 3 chevilleres Reflets d'Orient", category: "chevillere", price: 7.50, image: "IMG_9935_h99z0t.jpg" },
-        { id: "chv-012", name: "Subtile Constance", category: "chevillere", price: 3.50, image: "IMG_9933_sqifwf.jpg",subtitle: "En acier inoxydable"},
+        { id: "chv-012", name: "Subtile Constance", category: "chevillere", price: 3.50, image: "IMG_9933_sqifwf.jpg", subtitle: "En acier inoxydable" },
         { id: "chv-013", name: "le lot de 3 chevilleres Rosée des Sables", category: "chevillere", price: 7.50, image: "IMG_9932_zq3uyv.jpg" },
 
         // Autres accessoires
@@ -2302,21 +2315,6 @@
         { id: "br-nouv-002", name: "Chat & Cœur", category: "bracelet", price: 10.00, image: "braceletchatcoeur.jpg", localImage: true, isNew: true },
         { id: "br-nouv-003", name: "Piment & Fraise", category: "bracelet", price: 10.00, image: "braceletpimentfraise.jpg", localImage: true, isNew: true },
         { id: "br-nouv-004", name: "Coquillage & Étoile de mer", category: "bracelet", price: 10.00, image: "braceletcoquillageetoile.jpg", localImage: true, isNew: true },
-
-        // ===== THE CROSS COLLECTION (noms/prix à personnaliser) =====
-        { id: "cr-001", name: "sacrifice" , category: "collier-femme", collection: "cross", price: 12.8, image: "cross/cross-01.png" , localImage: true,subtitle: "Collier en acier inoxydable" },
-        { id: "cr-002", name: "Justified", category: "collier-femme", collection: "cross", price: 12.8, image: "cross/cross-02.png", localImage: true ,subtitle: "Collier en acier inoxydable"},
-        { id: "cr-004", name: "Redemption", category: "collier-femme", collection: "cross", price: 10.00, image: "cross/cross-04.jpg", localImage: true },
-        { id: "cr-005", name: "Graceful", category: "collier-femme", collection: "cross", price: 10.00, image: "cross/cross-05.jpg", localImage: true },
-        { id: "cr-006", name: "New birth", category: "collier-homme", collection: "cross", price: 11.00, image: "cross/cross-06.jpg", localImage: true },
-        { id: "cr-007", name: "The price ", category: "collier-femme", collection: "cross", price: 10.00, image: "cross/cross-07.jpg", localImage: true },
-        { id: "cr-008", name: "Providence", category: "collier-femme", collection: "cross", price: 10.00, image: "cross/cross-08.jpg", localImage: true },
-        { id: "cr-009", name: "Faith", category: "collier-femme", collection: "cross", price: 12.8, image: "cross/cross-09.jpg", localImage: true ,subtitle: "Collier en acier inoxydable" },
-        { id: "cr-010", name: "Loves never Fails", category: "collier-femme", collection: "cross", price: 12.8, image: "cross/cross-10.jpg", localImage: true,subtitle: "Collier en acier inoxydable" },
-        { id: "cr-012", name: "Set free", category: "collier-femme", collection: "cross", price: 12.8, image: "cross/cross-12.jpg", localImage: true ,subtitle: "Collier en acier inoxydable"},
-        { id: "cr-013", name: "Reconciled", category: "collier-femme", collection: "cross", price: 12.8, image: "cross/cross-13.jpg", localImage: true,subtitle: "Collier en acier inoxydable" },
-        { id: "cr-013", name: "The refiner's fire", category: "collier-femme", collection: "cross", price: 12.8, image: "cross/the rifiner's fire.JPG", localImage: true,subtitle: "Collier en acier inoxydable" },
-        { id: "cr-013", name: "Chosen", category: "collier-femme", collection: "cross", price: 12.8, image: "cross/Worthy.JPG", localImage: true,subtitle: "Collier en acier inoxydable" },
     ];
 
     // ============================================
@@ -2339,7 +2337,7 @@
         { id: 24, name: "DORÉ", price: 5.00, image: "IMG_9979_pa8p32.jpg", subtitle: "EN ACIER INOXIDABLE" },
         { id: 25, name: "Remember rouge", price: 10.00, image: "IMG_9981_hsfeeb.jpg", subtitle: "(le lot de deux bracelet)" },
         { id: 26, name: "Remember noir", price: 4.00, image: "IMG_9980_xlgo96.jpg", subtitle: "(vendu par unité)" },
-        { id: 27, name: "lot de deux Bracelets Yin Yang", price: 9.00, image: "IMG_9982_f6rib4.jpg", subtitle: "EN ACIER INOXIDABLE" },
+        { id: 27, name: "lot de deux Bracelets Yin Yang", price: 9.00, image: "IMG_9982_f6rib4.jpg", subtitle: "EN ACIER INOXYDABLE" },
         { id: 28, name: "white", price: 4.00, image: "IMG_9983_xwb6on.jpg", subtitle: "(vendu par unité)" }
     ];
 
@@ -2455,7 +2453,14 @@
 
     function displayProducts(category = 'all') {
         const grid = document.getElementById('productsGrid');
-        const filtered = category === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === category);
+        const filtered = category === 'all' 
+            ? PRODUCTS 
+            : PRODUCTS.filter(p => {
+                if (Array.isArray(p.category)) {
+                    return p.category.includes(category);
+                }
+                return p.category === category;
+            });
         
         if (filtered.length === 0) {
             grid.innerHTML = '<div style="text-align:center; padding:40px;">Aucun produit dans cette catégorie</div>';
@@ -2465,6 +2470,7 @@
         let productsHtml = filtered.map(p => {
             const priceUSD = (p.price * USD_RATE).toFixed(2);
             const imageUrl = getImageUrl(p.image, p.localImage);
+            const categoryForCart = Array.isArray(p.category) ? p.category[0] : p.category;
             const imageHtml = `<img src="${imageUrl}" alt="${p.name}" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23f0e6d2%22/%3E%3Cline x1=%2222%22 y1=%2255%22 x2=%2278%22 y2=%2255%22 stroke=%22%23C9A24A%22 stroke-width=%222%22/%3E%3Ccircle cx=%2234%22 cy=%2255%22 r=%229%22 fill=%22%23D4A5A5%22/%3E%3Ccircle cx=%2250%22 cy=%2255%22 r=%2211%22 fill=%22%23C9A24A%22/%3E%3Ccircle cx=%2266%22 cy=%2255%22 r=%229%22 fill=%22%23A8C4A0%22/%3E%3C/svg%3E'; this.style.objectFit='contain'; this.style.background='#f5f0e8';">`;
             const newBadgeHtml = p.isNew ? `<span class="badge-new" style="position:absolute; top:12px; right:12px; left:auto;">Nouveau</span>` : '';
             return `
@@ -2474,7 +2480,7 @@
                         <div class="product-name">${p.name}</div>
                         ${p.subtitle ? `<div class="product-subtitle">${p.subtitle}</div>` : ''}
                         <div class="product-price">${p.price.toFixed(2)} TND <small>(${priceUSD} USD)</small></div>
-                        <button class="btn-add" onclick="addToCart({ id: '${p.id}', name: '${p.name.replace(/'/g, "\\'")}', price: ${p.price}, category: '${p.category}' })"><i class="fas fa-plus"></i> Ajouter au panier</button>
+                        <button class="btn-add" data-add-id="${p.id}" data-add-name="${p.name.replace(/"/g, '&quot;')}" data-add-price="${p.price}" data-add-category="${categoryForCart}"><i class="fas fa-plus"></i> Ajouter au panier</button>
                     </div>
                 </div>
             `;
@@ -2721,6 +2727,7 @@
         universeGrid.innerHTML = items.map(p => {
             const priceUSD = (p.price * USD_RATE).toFixed(2);
             const imageUrl = getImageUrl(p.image, p.localImage);
+            const categoryForCart = Array.isArray(p.category) ? p.category[0] : p.category;
             return `
                 <div class="product-card">
                     <div class="product-img"><img src="${imageUrl}" alt="${p.name}"></div>
@@ -2728,7 +2735,7 @@
                         <div class="product-name">${p.name}</div>
                         ${p.subtitle ? `<div class="model-subtitle">${p.subtitle}</div>` : ''}
                         <div class="product-price">${p.price.toFixed(2)} TND <small>(${priceUSD} USD)</small></div>
-                        <button class="btn-add" onclick="addToCart({ id: '${p.id}', name: '${p.name.replace(/'/g, "\\'")}', price: ${p.price}, category: '${p.category}' })"><i class="fas fa-plus"></i> Ajouter au panier</button>
+                        <button class="btn-add" data-add-id="${p.id}" data-add-name="${p.name.replace(/"/g, '&quot;')}" data-add-price="${p.price}" data-add-category="${categoryForCart}"><i class="fas fa-plus"></i> Ajouter au panier</button>
                     </div>
                 </div>
             `;
@@ -3056,6 +3063,23 @@
     });
     backBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ============================================
+    // DÉLÉGATION D'ÉVÉNEMENT - Ajout au panier
+    // (Gère les apostrophes dans les noms sans casser le HTML)
+    // ============================================
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-add[data-add-id]');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        addToCart({
+            id: btn.dataset.addId,
+            name: btn.dataset.addName,
+            price: parseFloat(btn.dataset.addPrice),
+            category: btn.dataset.addCategory
+        });
     });
 </script>
 </body>
