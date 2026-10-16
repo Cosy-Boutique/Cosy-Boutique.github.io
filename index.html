@@ -737,6 +737,53 @@
             box-shadow: 0 4px 10px rgba(212,165,165,0.4);
             z-index: 2;
         }
+        /* ===== BADGE RUPTURE DE STOCK ===== */
+.badge-out-of-stock {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #e74c3c;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(231,76,60,0.4);
+    z-index: 3;
+}
+
+.product-card.out-of-stock .product-img img,
+.new-card.out-of-stock .new-card-img img,
+.model-card.out-of-stock .model-img img {
+    filter: grayscale(60%) brightness(0.95);
+    opacity: 0.85;
+}
+
+.product-card.out-of-stock .product-img::before,
+.new-card.out-of-stock .new-card-img::before {
+    opacity: 0.4;
+}
+
+/* Bouton désactivé */
+.btn-add.disabled,
+.btn-add:disabled {
+    background: #e0e0e0 !important;
+    border-color: #e0e0e0 !important;
+    color: #999 !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.btn-personnaliser.disabled,
+.btn-personnaliser:disabled {
+    background: #e0e0e0 !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+    pointer-events: none;
+}
 
         .new-card-info {
             padding: 16px;
@@ -2139,7 +2186,7 @@
         // Ces colliers apparaissent dans "Collier Homme" ET "Collier Femme"
         
         { id: "cr-001", name: "Sacrifice", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/cross-01.png", localImage: true, subtitle: "Collier en acier inoxydable" },
-        { id: "cr-002", name: "Justified", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/cross-02.png", localImage: true, subtitle: "Collier en acier inoxydable" },
+        { id: "cr-002", name: "Justified", category: ["collier-homme", "collier-femme"], collection: "cross", price: 12.80, image: "cross/cross-02.png", localImage: true, subtitle: "Collier en acier inoxydable" , outOfStock: true },},
         { id: "cr-004", name: "Redemption", category: ["collier-homme", "collier-femme"], collection: "cross", price: 10.00, image: "cross/cross-04.jpg", localImage: true },
         { id: "cr-005", name: "Graceful", category: ["collier-homme", "collier-femme"], collection: "cross", price: 10.00, image: "cross/cross-05.jpg", localImage: true },
         { id: "cr-006", name: "New Birth", category: ["collier-homme", "collier-femme"], collection: "cross", price: 11.00, image: "cross/cross-06.jpg", localImage: true },
@@ -2165,9 +2212,9 @@
         { id: "br-042", name: "Opaline", category: "bracelet", price: 5.00, image: "images/IMG_3210.JPG", localImage: true },
         { id: "br-043", name: "Lunaris", category: "bracelet", price: 5.00, image: "images/IMG_3208.jpg", localImage: true },
         // ===== 3 NOUVEAUX BRACELETS (Imgur) =====
-        { id: "br-nouv-005", name: "Kyubi", category: "bracelet", price: 6.500, image: "https://i.imgur.com/naQ2G72.jpg", localImage: true, isNew: true },
-        { id: "br-nouv-006", name: "Obsidian", category: "bracelet", price: 5.00, image: "https://i.imgur.com/eNVGARt.jpg", localImage: true, isNew: true },
-        { id: "br-nouv-007", name: "Atlantis", category: "bracelet", price: 6.500, image: "https://i.imgur.com/argiT7l.jpg", localImage: true, isNew: true },
+        { id: "br-nouv-005", name: "Kyubi", category: "bracelet", price: 6.500, image: "https://i.imgur.com/naQ2G72.jpg", localImage: true, isNew: true , outOfStock: true },},
+        { id: "br-nouv-006", name: "Obsidian", category: "bracelet", price: 5.00, image: "https://i.imgur.com/eNVGARt.jpg", localImage: true, isNew: true, outOfStock: true }, },
+        { id: "br-nouv-007", name: "Atlantis", category: "bracelet", price: 6.500, image: "https://i.imgur.com/argiT7l.jpg", localImage: true, isNew: true , outOfStock: true },},
         { id: "br-005", name: "Je ne regrette rien", category: "bracelet", price: 7.00, image: "37981d9c-7c35-406f-9925-409e65cdf19e_x9didz.jpg" },
         { id: "br-008", name: "Milord", category: "bracelet", price: 5.00, image: "f85e6155-0607-4fcb-8af7-8c08ecfc5533_nubzbc.jpg" },
         { id: "br-009", name: "L'Hymne à l'Amour", category: "bracelet", price: 8.00, image: "1ec1b473-8840-4f80-af74-40553a6d13a5_mnktk8.jpg" },
@@ -2469,23 +2516,38 @@
         }
         
         let productsHtml = filtered.map(p => {
-            const priceUSD = (p.price * USD_RATE).toFixed(2);
-            const imageUrl = getImageUrl(p.image, p.localImage);
-            const categoryForCart = Array.isArray(p.category) ? p.category[0] : p.category;
-            const imageHtml = `<img src="${imageUrl}" alt="${p.name}" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23f0e6d2%22/%3E%3Cline x1=%2222%22 y1=%2255%22 x2=%2278%22 y2=%2255%22 stroke=%22%23C9A24A%22 stroke-width=%222%22/%3E%3Ccircle cx=%2234%22 cy=%2255%22 r=%229%22 fill=%22%23D4A5A5%22/%3E%3Ccircle cx=%2250%22 cy=%2255%22 r=%2211%22 fill=%22%23C9A24A%22/%3E%3Ccircle cx=%2266%22 cy=%2255%22 r=%229%22 fill=%22%23A8C4A0%22/%3E%3C/svg%3E'; this.style.objectFit='contain'; this.style.background='#f5f0e8';">`;
-            const newBadgeHtml = p.isNew ? `<span class="badge-new" style="position:absolute; top:12px; right:12px; left:auto;">Nouveau</span>` : '';
-            return `
-                <div class="product-card">
-                    <div class="product-img">${imageHtml}${newBadgeHtml}</div>
-                    <div class="product-info">
-                        <div class="product-name">${p.name}</div>
-                        ${p.subtitle ? `<div class="product-subtitle">${p.subtitle}</div>` : ''}
-                        <div class="product-price">${p.price.toFixed(2)} TND <small>(${priceUSD} USD)</small></div>
-                        <button class="btn-add" data-add-id="${p.id}" data-add-name="${p.name.replace(/"/g, '&quot;')}" data-add-price="${p.price}" data-add-category="${categoryForCart}"><i class="fas fa-plus"></i> Ajouter au panier</button>
-                    </div>
-                </div>
-            `;
-        }).join('');
+    const priceUSD = (p.price * USD_RATE).toFixed(2);
+    const imageUrl = getImageUrl(p.image, p.localImage);
+    const categoryForCart = Array.isArray(p.category) ? p.category[0] : p.category;
+    const isOut = p.outOfStock === true;
+
+    const imageHtml = `<img src="${imageUrl}" alt="${p.name}" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23f0e6d2%22/%3E%3Cline x1=%2222%22 y1=%2255%22 x2=%2278%22 y2=%2255%22 stroke=%22%23C9A24A%22 stroke-width=%222%22/%3E%3Ccircle cx=%2234%22 cy=%2255%22 r=%229%22 fill=%22%23D4A5A5%22/%3E%3Ccircle cx=%2250%22 cy=%2255%22 r=%2211%22 fill=%22%23C9A24A%22/%3E%3Ccircle cx=%2266%22 cy=%2255%22 r=%229%22 fill=%22%23A8C4A0%22/%3E%3C/svg%3E'; this.style.objectFit='contain'; this.style.background='#f5f0e8';">`;
+
+    // Badges (Nouveau + Rupture de stock)
+    let badgesHtml = '';
+    if (isOut) {
+        badgesHtml = `<span class="badge-out-of-stock">Rupture de stock</span>`;
+    } else if (p.isNew) {
+        badgesHtml = `<span class="badge-new" style="position:absolute; top:12px; right:12px; left:auto;">Nouveau</span>`;
+    }
+
+    // Bouton : désactivé si rupture
+    const buttonHtml = isOut
+        ? `<button class="btn-add disabled" disabled><i class="fas fa-ban"></i> Rupture de stock</button>`
+        : `<button class="btn-add" data-add-id="${p.id}" data-add-name="${p.name.replace(/"/g, '&quot;')}" data-add-price="${p.price}" data-add-category="${categoryForCart}"><i class="fas fa-plus"></i> Ajouter au panier</button>`;
+
+    return `
+        <div class="product-card${isOut ? ' out-of-stock' : ''}">
+            <div class="product-img">${imageHtml}${badgesHtml}</div>
+            <div class="product-info">
+                <div class="product-name">${p.name}</div>
+                ${p.subtitle ? `<div class="product-subtitle">${p.subtitle}</div>` : ''}
+                <div class="product-price">${p.price.toFixed(2)} TND <small>(${priceUSD} USD)</small></div>
+                ${buttonHtml}
+            </div>
+        </div>
+    `;
+}).join('');
 
         if (category === 'bracelet') {
             const carouselImages = PERSONALISATION_MODELS.slice(0, 8).map(m => getImageUrl(m.image));
@@ -2726,21 +2788,32 @@
         const universeGrid = document.getElementById('collectionUniverseGrid');
         const items = PRODUCTS.filter(p => p.collection === slug);
         universeGrid.innerHTML = items.map(p => {
-            const priceUSD = (p.price * USD_RATE).toFixed(2);
-            const imageUrl = getImageUrl(p.image, p.localImage);
-            const categoryForCart = Array.isArray(p.category) ? p.category[0] : p.category;
-            return `
-                <div class="product-card">
-                    <div class="product-img"><img src="${imageUrl}" alt="${p.name}"></div>
-                    <div class="product-info">
-                        <div class="product-name">${p.name}</div>
-                        ${p.subtitle ? `<div class="model-subtitle">${p.subtitle}</div>` : ''}
-                        <div class="product-price">${p.price.toFixed(2)} TND <small>(${priceUSD} USD)</small></div>
-                        <button class="btn-add" data-add-id="${p.id}" data-add-name="${p.name.replace(/"/g, '&quot;')}" data-add-price="${p.price}" data-add-category="${categoryForCart}"><i class="fas fa-plus"></i> Ajouter au panier</button>
-                    </div>
-                </div>
-            `;
-        }).join('');
+    const priceUSD = (p.price * USD_RATE).toFixed(2);
+    const imageUrl = getImageUrl(p.image, p.localImage);
+    const categoryForCart = Array.isArray(p.category) ? p.category[0] : p.category;
+    const isOut = p.outOfStock === true;
+
+    const badgesHtml = isOut ? `<span class="badge-out-of-stock">Rupture de stock</span>` : '';
+
+    const buttonHtml = isOut
+        ? `<button class="btn-add disabled" disabled><i class="fas fa-ban"></i> Rupture de stock</button>`
+        : `<button class="btn-add" data-add-id="${p.id}" data-add-name="${p.name.replace(/"/g, '&quot;')}" data-add-price="${p.price}" data-add-category="${categoryForCart}"><i class="fas fa-plus"></i> Ajouter au panier</button>`;
+
+    return `
+        <div class="product-card${isOut ? ' out-of-stock' : ''}">
+            <div class="product-img">
+                <img src="${imageUrl}" alt="${p.name}">
+                ${badgesHtml}
+            </div>
+            <div class="product-info">
+                <div class="product-name">${p.name}</div>
+                ${p.subtitle ? `<div class="model-subtitle">${p.subtitle}</div>` : ''}
+                <div class="product-price">${p.price.toFixed(2)} TND <small>(${priceUSD} USD)</small></div>
+                ${buttonHtml}
+            </div>
+        </div>
+    `;
+}).join('');
 
         universe.style.display = 'flex';
         window.scrollTo({ top: 0, behavior: 'auto' });
