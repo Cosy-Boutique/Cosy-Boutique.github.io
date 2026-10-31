@@ -33,13 +33,13 @@
     // images: [...]  => 2 ou 3 images = carrousel automatique
     const WEDDING_PRODUCTS = [
         // ===== BOUQUETS (précommande) =====
-        { id: 'wb-bq-001', name: 'Bouquet Éternité',   group: 'bouquet', price: 45.00, preorder: true, images: imgs(['G11s1jL', 'vXkxGs7', 'gKH77OD']) },
-        { id: 'wb-bq-002', name: 'Bouquet Camélia',    group: 'bouquet', price: 45.00, preorder: true, images: imgs(['Ej2rPym', 'ur2vO3I', 'w6TElWw']) },
-        { id: 'wb-bq-003', name: 'Bouquet Pureté',     group: 'bouquet', price: 40.00, preorder: true, images: imgs(['9FWQOYJ', 'zQTKzLc']) },
-        { id: 'wb-bq-004', name: 'Bouquet Ivoire',     group: 'bouquet', price: 40.00, preorder: true, images: imgs(['bPquBS7', 'u2ppdJm']) },
-        { id: 'wb-bq-005', name: 'Bouquet Séraphine',  group: 'bouquet', price: 40.00, preorder: true, images: imgs(['WMGNOWT', 'SgQfWRx']) },
-        { id: 'wb-bq-006', name: 'Bouquet Aurore',     group: 'bouquet', price: 35.00, preorder: true, images: imgs(['GiEdL2x']) },
-        { id: 'wb-bq-007', name: 'Bouquet Célestine',  group: 'bouquet', price: 35.00, preorder: true, images: imgs(['AcC2ZfL']) },
+        { id: 'wb-bq-001', name: 'Bouquet Éternité',   group: 'bouquet', price: 120.00, preorder: true, images: imgs(['G11s1jL', 'vXkxGs7', 'gKH77OD']) },
+        { id: 'wb-bq-002', name: 'Bouquet Camélia',    group: 'bouquet', price: 120.00, preorder: true, images: imgs(['Ej2rPym', 'ur2vO3I', 'w6TElWw']) },
+        { id: 'wb-bq-003', name: 'Bouquet Pureté',     group: 'bouquet', price: 120.00, preorder: true, images: imgs(['9FWQOYJ', 'zQTKzLc']) },
+        { id: 'wb-bq-004', name: 'Bouquet Ivoire',     group: 'bouquet', price: 120.00, preorder: true, images: imgs(['bPquBS7', 'u2ppdJm']) },
+        { id: 'wb-bq-005', name: 'Bouquet Séraphine',  group: 'bouquet', price: 120.00, preorder: true, images: imgs(['WMGNOWT', 'SgQfWRx']) },
+        { id: 'wb-bq-006', name: 'Bouquet Aurore',     group: 'bouquet', price: 120.00, preorder: true, images: imgs(['GiEdL2x']) },
+        { id: 'wb-bq-007', name: 'Bouquet Célestine',  group: 'bouquet', price: 120.00, preorder: true, images: imgs(['AcC2ZfL']) },
 
         // ===== COIFFURE (précommande) =====
         { id: 'wb-hr-001', name: 'Serre-tête Perlé',   group: 'coiffure', price: 15.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['97b4nHI']) },
@@ -65,19 +65,19 @@
         { id: 'wb-pr-006', name: 'Parure Divine',      group: 'parure-dos', price: 40.00, subtitle: 'Parure', images: imgs(['QU4E1G4']) },
 
         // ===== ACCESSOIRES POUR LE DOS (disponibles directement) =====
-        { id: 'wb-ds-001', name: 'Dos Cascade',        group: 'parure-dos', price: 35.00, subtitle: 'Accessoire pour le dos', images: imgs(['M8OiH33']) },
-        { id: 'wb-ds-002', name: 'Dos Chaîne Perlée',  group: 'parure-dos', price: 35.00, subtitle: 'Accessoire pour le dos', images: imgs(['jUnJ4oP']) },
-        { id: 'wb-ds-003', name: 'Dos Nacré',          group: 'parure-dos', price: 35.00, subtitle: 'Accessoire pour le dos', images: imgs(['dBUBwTA']) },
-        { id: 'wb-ds-004', name: 'Dos Voile de Perles', group: 'parure-dos', price: 35.00, subtitle: 'Accessoire pour le dos', images: imgs(['U4txwLz']) },
-        { id: 'wb-ds-005', name: 'Dos Aurore',         group: 'parure-dos', price: 35.00, subtitle: 'Accessoire pour le dos', images: imgs(['GkPWpdj']) },
-        { id: 'wb-ds-006', name: 'Dos Céleste',        group: 'parure-dos', price: 35.00, subtitle: 'Accessoire pour le dos', images: imgs(['y1ICanJ']) },
-        { id: 'wb-ds-007', name: 'Dos Étoilé',         group: 'parure-dos', price: 35.00, subtitle: 'Accessoire pour le dos', images: imgs(['qHwWzCi']) },
-        { id: 'wb-ds-008', name: 'Dos Soie',           group: 'parure-dos', price: 35.00, subtitle: 'Accessoire pour le dos', images: imgs(['5mw6zDg']) },
+        { id: 'wb-ds-001', name: 'Dos Cascade',        group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['M8OiH33']) },
+        { id: 'wb-ds-002', name: 'Dos Chaîne Perlée',  group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['jUnJ4oP']) },
+        { id: 'wb-ds-003', name: 'Dos Nacré',          group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['dBUBwTA']) },
+        { id: 'wb-ds-004', name: 'Dos Voile de Perles', group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['U4txwLz']) },
+        { id: 'wb-ds-005', name: 'Dos Aurore',         group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['GkPWpdj']) },
+        { id: 'wb-ds-006', name: 'Dos Céleste',        group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['y1ICanJ']) },
+        { id: 'wb-ds-007', name: 'Dos Étoilé',         group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['qHwWzCi']) },
+        { id: 'wb-ds-008', name: 'Dos Soie',           group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['5mw6zDg']) },
 
         // ===== PINS (précommande) =====
-        { id: 'wb-pi-001', name: 'Pin Alliance',       group: 'pin', price: 8.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['kumVQD6']) },
-        { id: 'wb-pi-002', name: 'Pin Boutonnière',    group: 'pin', price: 8.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['PDADT6M']) },
-        { id: 'wb-pi-003', name: 'Pin Éternel',        group: 'pin', price: 8.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['1ABjKh1']) },
+        { id: 'wb-pi-001', name: 'Pin Alliance',       group: 'pin', price: 10.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['kumVQD6']) },
+        { id: 'wb-pi-002', name: 'Pin Boutonnière',    group: 'pin', price: 10.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['PDADT6M']) },
+        { id: 'wb-pi-003', name: 'Pin Éternel',        group: 'pin', price: 10.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['1ABjKh1']) },
 
         // ===== CADEAUX INVITÉS : PORTE-CLÉS (précommande, minimum 45) =====
         // Pas de photo pour l'instant : ajoute des liens dans images: [...] quand tu les as.
