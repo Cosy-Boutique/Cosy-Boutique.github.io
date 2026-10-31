@@ -18,6 +18,9 @@
     const imgur = (id) => 'https://i.imgur.com/' + id + '.jpg';
     const imgs = (ids) => ids.map(imgur);
 
+    // Note affichée uniquement quand on filtre sur "Parures & dos"
+    const PEARL_NOTE = 'Nos parures et accessoires pour le dos sont réalisés avec de vraies perles, et non avec des perles en plastique.';
+
     const WEDDING_FILTERS = [
         { key: 'all',       label: 'Tout' },
         { key: 'bouquet',   label: 'Bouquets' },
@@ -57,22 +60,22 @@
         { id: 'wb-pn-005', name: 'Panier Jardin',      group: 'panier', price: 30.00, preorder: true, images: imgs(['gDhztsi']) },
 
         // ===== PARURES (disponibles directement) =====
-        { id: 'wb-pr-001', name: 'Parure Neige',       group: 'parure-dos', price: 40.00, subtitle: 'Parure', images: imgs(['oR1M2Kn']) },
-        { id: 'wb-pr-002', name: 'Parure Perle Royale', group: 'parure-dos', price: 40.00, subtitle: 'Parure', images: imgs(['ZylQBFl']) },
-        { id: 'wb-pr-003', name: 'Parure Alliance',    group: 'parure-dos', price: 40.00, subtitle: 'Parure', images: imgs(['nnNv5YC']) },
-        { id: 'wb-pr-004', name: 'Parure Rosée',       group: 'parure-dos', price: 40.00, subtitle: 'Parure', images: imgs(['M9OHVgl']) },
-        { id: 'wb-pr-005', name: 'Parure Opale',       group: 'parure-dos', price: 40.00, subtitle: 'Parure', images: imgs(['Sdd0PWu']) },
-        { id: 'wb-pr-006', name: 'Parure Divine',      group: 'parure-dos', price: 40.00, subtitle: 'Parure', images: imgs(['QU4E1G4']) },
+        { id: 'wb-pr-001', name: 'Parure Neige',       group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['oR1M2Kn']) },
+        { id: 'wb-pr-002', name: 'Parure Perle Royale', group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['ZylQBFl']) },
+        { id: 'wb-pr-003', name: 'Parure Alliance',    group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['nnNv5YC']) },
+        { id: 'wb-pr-004', name: 'Parure Rosée',       group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['M9OHVgl']) },
+        { id: 'wb-pr-005', name: 'Parure Opale',       group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['Sdd0PWu']) },
+        { id: 'wb-pr-006', name: 'Parure Divine',      group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['QU4E1G4']) },
 
         // ===== ACCESSOIRES POUR LE DOS (disponibles directement) =====
-        { id: 'wb-ds-001', name: 'Dos Cascade',        group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['M8OiH33']) },
-        { id: 'wb-ds-002', name: 'Dos Chaîne Perlée',  group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['jUnJ4oP']) },
-        { id: 'wb-ds-003', name: 'Dos Nacré',          group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['dBUBwTA']) },
-        { id: 'wb-ds-004', name: 'Dos Voile de Perles', group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['U4txwLz']) },
-        { id: 'wb-ds-005', name: 'Dos Aurore',         group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['GkPWpdj']) },
-        { id: 'wb-ds-006', name: 'Dos Céleste',        group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['y1ICanJ']) },
-        { id: 'wb-ds-007', name: 'Dos Étoilé',         group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['qHwWzCi']) },
-        { id: 'wb-ds-008', name: 'Dos Soie',           group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos', images: imgs(['5mw6zDg']) },
+        { id: 'wb-ds-001', name: 'Dos Cascade',        group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['M8OiH33']) },
+        { id: 'wb-ds-002', name: 'Dos Chaîne Perlée',  group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['jUnJ4oP']) },
+        { id: 'wb-ds-003', name: 'Dos Nacré',          group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['dBUBwTA']) },
+        { id: 'wb-ds-004', name: 'Dos Voile de Perles', group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['U4txwLz']) },
+        { id: 'wb-ds-005', name: 'Dos Aurore',         group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['GkPWpdj']) },
+        { id: 'wb-ds-006', name: 'Dos Céleste',        group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['y1ICanJ']) },
+        { id: 'wb-ds-007', name: 'Dos Étoilé',         group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['qHwWzCi']) },
+        { id: 'wb-ds-008', name: 'Dos Soie',           group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['5mw6zDg']) },
 
         // ===== PINS (précommande) =====
         { id: 'wb-pi-001', name: 'Pin Alliance',       group: 'pin', price: 10.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['kumVQD6']) },
@@ -113,6 +116,8 @@
         background: rgba(255,255,255,0.72); border: 1px solid #e6d9bf; border-radius: 14px; padding: 10px 16px; }
     .wedding-notice b { color: var(--gold-bead); }
     .wedding-extras .filters { margin-bottom: 0; }
+    .wedding-pearl-note { max-width: 560px; margin: 16px auto 0; text-align: center; font-size: 13px; font-style: italic; color: #6b5d44; line-height: 1.5; }
+    .wedding-pearl-note i { color: var(--gold-bead); margin-right: 6px; font-style: normal; }
     .wedding-universe .filter-btn { background: rgba(255,255,255,0.6); border-color: #dccfb4; color: #3a3226; }
     .wedding-universe .filter-btn.active, .wedding-universe .filter-btn:hover { background: var(--gold-bead); border-color: var(--gold-bead); color: #fff; box-shadow: 0 6px 14px rgba(201,162,74,0.3); }
 
@@ -120,6 +125,8 @@
     .wedding-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.8s ease-in-out; }
     .wedding-slide.active { opacity: 1; }
     .wedding-img.single .wedding-slide { opacity: 1; }
+    .wedding-img { touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+    .wedding-slide { pointer-events: none; -webkit-user-drag: none; }
     .wedding-dots { position: absolute; left: 0; right: 0; bottom: 10px; display: flex; justify-content: center; gap: 6px; z-index: 3; }
     .wedding-dot { width: 8px; height: 8px; border-radius: 50%; border: none; padding: 0; cursor: pointer; background: rgba(255,255,255,0.65); box-shadow: 0 0 0 1px rgba(0,0,0,0.15); }
     .wedding-dot.active { background: var(--gold-bead); box-shadow: none; }
@@ -236,6 +243,7 @@
             if (slides.length < 2) return;
             const dots = box.querySelectorAll('.wedding-dot');
             let cur = 0;
+            let timer = null;
 
             function go(i) {
                 slides[cur].classList.remove('active');
@@ -245,22 +253,51 @@
                 if (dots[cur]) dots[cur].classList.add('active');
             }
 
-            let t = setInterval(() => go(cur + 1), 3500);
-            timers.push(t);
+            // défilement automatique (se met en pause pendant que la personne touche l'image)
+            function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
+            function startAuto() {
+                stopAuto();
+                timer = setInterval(() => go(cur + 1), 3500);
+                timers.push(timer);
+            }
+            startAuto();
 
+            // pastilles cliquables
             dots.forEach((d) => d.addEventListener('click', (e) => {
                 e.stopPropagation();
                 go(parseInt(d.dataset.dot, 10));
+                startAuto();
             }));
 
-            let x0 = null;
-            box.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
-            box.addEventListener('touchend', (e) => {
-                if (x0 === null) return;
-                const dx = e.changedTouches[0].clientX - x0;
-                if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
-                x0 = null;
-            }, { passive: true });
+            // glissement au doigt (mobile) ou à la souris (ordinateur)
+            let startX = null, startY = null, lastX = null;
+
+            function finishSwipe() {
+                if (startX === null) return;
+                const dx = lastX - startX;
+                const dy = (box._lastY !== undefined ? box._lastY : startY) - startY;
+                startX = null;
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                    go(cur + (dx < 0 ? 1 : -1));     // glisse vers la gauche = photo suivante
+                }
+                startAuto();
+            }
+
+            box.addEventListener('pointerdown', (e) => {
+                if (e.pointerType === 'mouse' && e.button !== 0) return;
+                startX = lastX = e.clientX;
+                startY = e.clientY;
+                box._lastY = e.clientY;
+                stopAuto();
+            });
+            box.addEventListener('pointermove', (e) => {
+                if (startX === null) return;
+                lastX = e.clientX;
+                box._lastY = e.clientY;
+            });
+            box.addEventListener('pointerup', finishSwipe);
+            box.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') finishSwipe(); });
+            box.addEventListener('pointercancel', () => { if (startX !== null) { startX = null; startAuto(); } });
         });
     }
 
@@ -275,6 +312,8 @@
         const list = WEDDING_PRODUCTS.filter((p) => currentGroup === 'all' || p.group === currentGroup);
         grid.innerHTML = list.map(cardHtml).join('');
         setupCarousels(grid);
+        const pearlNote = document.getElementById('weddingPearlNote');
+        if (pearlNote) pearlNote.style.display = (currentGroup === 'parure-dos') ? 'block' : 'none';
     }
 
     function removeExtras() {
@@ -315,7 +354,8 @@
             '<div class="filters" id="weddingFilters">' +
             WEDDING_FILTERS.map((f) =>
                 '<button class="filter-btn' + (f.key === 'all' ? ' active' : '') + '" data-wgroup="' + f.key + '">' + f.label + '</button>').join('') +
-            '</div>';
+            '</div>' +
+            '<p class="wedding-pearl-note" id="weddingPearlNote" style="display:none"><i class="fas fa-gem"></i>' + PEARL_NOTE + '</p>';
         grid.parentNode.insertBefore(extras, grid);
 
         currentGroup = 'all';
