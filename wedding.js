@@ -15,8 +15,10 @@
     // ----------------------------------------------------------
     // 1) DONNÉES  (noms et prix = EXEMPLES, à modifier par toi)
     // ----------------------------------------------------------
-    const WEDDING_USD_RATE = 0.50;   // <-- CHANGE CETTE VALEUR
-   
+    // Taux TND -> USD de la collection Wedding UNIQUEMENT.
+    // Le reste du site continue d'utiliser USD_RATE (dans index.html).
+    const WEDDING_USD_RATE = 0.80;   // <-- CHANGE CETTE VALEUR
+
     const imgur = (id) => 'https://i.imgur.com/' + id + '.jpg';
     const imgs = (ids) => ids.map(imgur);
 
@@ -187,7 +189,7 @@
 
     function cardHtml(p) {
         const isOut = p.outOfStock === true;
-        const usd = (p.price * USD_RATE).toFixed(2);
+        const usd = (p.price * WEDDING_USD_RATE).toFixed(2);
 
         let badge;
         if (isOut) badge = '<span class="badge-out-of-stock">Rupture de stock</span>';
@@ -438,15 +440,20 @@
     function decorateCart() {
         document.querySelectorAll('#cartItemsList .cart-item').forEach((row, i) => {
             const it = cart[i];
-            if (!it || !it.preorder) return;
-            const nameEl = row.querySelector('.cart-item-name');
-            if (nameEl && !nameEl.querySelector('.preorder-tag')) {
-                nameEl.insertAdjacentHTML('beforeend', ' <span class="preorder-tag">Précommande</span>');
+            if (!it || it.category !== 'mariage') return;
+
+            // prix affiché avec le taux Wedding
+            const priceEl = row.querySelector('.cart-item-price');
+            if (priceEl) {
+                priceEl.innerHTML = it.price.toFixed(2) + ' TND (' + (it.price * WEDDING_USD_RATE).toFixed(2) + ' USD)' +
+                    (it.minQuantity ? ' <span class="min-qty">· min. ' + it.minQuantity + '</span>' : '');
             }
-            if (it.minQuantity) {
-                const priceEl = row.querySelector('.cart-item-price');
-                if (priceEl && !priceEl.querySelector('.min-qty')) {
-                    priceEl.insertAdjacentHTML('beforeend', ' <span class="min-qty">· min. ' + it.minQuantity + '</span>');
+
+            // étiquette précommande
+            if (it.preorder) {
+                const nameEl = row.querySelector('.cart-item-name');
+                if (nameEl && !nameEl.querySelector('.preorder-tag')) {
+                    nameEl.insertAdjacentHTML('beforeend', ' <span class="preorder-tag">Précommande</span>');
                 }
             }
         });
@@ -479,6 +486,38 @@
     const _updateCartUI = updateCartUI;
     updateCartUI = function () { _updateCartUI(); decorateCart(); };
 
+    // 8c-bis) taux de change : Wedding a le sien, le reste du site garde USD_RATE
+    function rateFor(item) { return item.category === 'mariage' ? WEDDING_USD_RATE : USD_RATE; }
+    function cartSubtotalUSD() { return cart.reduce((sum, it) => sum + it.price * it.quantity * rateFor(it), 0); }
+
+    updateTotals = function () {
+        const subtotalTND = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
+        const subtotalUSD = cartSubtotalUSD();
+        let totalDisplay;
+        if (selectedCountry === 'tunisia') {
+            const totalTND = subtotalTND + SHIPPING_TUNISIA_TND;
+            const totalUSD = subtotalUSD + SHIPPING_TUNISIA_TND * USD_RATE;
+            totalDisplay = 'Total: ' + totalTND.toFixed(2) + ' TND (' + totalUSD.toFixed(2) + ' USD)';
+        } else if (selectedCountry === 'kinshasa') {
+            totalDisplay = 'Total: ' + subtotalUSD.toFixed(2) + ' USD + frais de livraison';
+        } else {
+            totalDisplay = 'Total: ' + subtotalTND.toFixed(2) + ' TND (' + subtotalUSD.toFixed(2) + ' USD)';
+        }
+        document.getElementById('cartTotalDisplay').innerHTML = totalDisplay;
+    };
+
+    // commande classique (sans précommande) : le sous-total en USD envoyé à la base utilise aussi le bon taux
+    if (typeof supabaseClient !== 'undefined' && supabaseClient && typeof supabaseClient.rpc === 'function') {
+        const _rpc = supabaseClient.rpc.bind(supabaseClient);
+        supabaseClient.rpc = function (name, params) {
+            if (name === 'submit_order' && params && params.p_currency === 'USD') {
+                params = Object.assign({}, params, { p_subtotal: cartSubtotalUSD() });
+            }
+            return _rpc(name, params);
+        };
+    }
+    CATEGORY_LABELS.mariage = 'Mariage';
+
     // 8d) minimum de quantité (porte-clés : 45)
     const _changeQuantity = window.changeQuantity;
     window.changeQuantity = function (idx, delta) {
@@ -493,21 +532,22 @@
     // 8e) bouton de validation : WhatsApp si précommande, sinon comportement normal
     function buildWhatsAppMessage() {
         const isTn = selectedCountry === 'tunisia';
-        const fmt = (tnd) => isTn ? tnd.toFixed(2) + ' TND' : (tnd * USD_RATE).toFixed(2) + ' USD';
+        const money = (tnd, rate) => isTn ? tnd.toFixed(2) + ' TND' : (tnd * rate).toFixed(2) + ' USD';
 
-        let subtotal = 0;
+        let subTND = 0;
         const lines = cart.map((it) => {
             const line = it.price * it.quantity;
-            subtotal += line;
+            subTND += line;
             const extra = it.preorder ? ' [précommande]' : '';
-            return '• ' + it.name + ' × ' + it.quantity + ' — ' + fmt(line) + extra;
+            return '• ' + it.name + ' × ' + it.quantity + ' — ' + money(line, rateFor(it)) + extra;
         });
+        const subtotalText = isTn ? subTND.toFixed(2) + ' TND' : cartSubtotalUSD().toFixed(2) + ' USD';
 
         let msg = 'Bonjour Cosy 👋\nJe souhaite passer commande :\n\n' + lines.join('\n') + '\n\n';
-        msg += 'Sous-total : ' + fmt(subtotal) + '\n';
+        msg += 'Sous-total : ' + subtotalText + '\n';
         if (isTn) {
             msg += 'Livraison : ' + SHIPPING_TUNISIA_TND.toFixed(2) + ' TND\n';
-            msg += 'Total : ' + fmt(subtotal + SHIPPING_TUNISIA_TND) + '\n';
+            msg += 'Total : ' + (subTND + SHIPPING_TUNISIA_TND).toFixed(2) + ' TND\n';
         } else {
             msg += 'Livraison : sur devis\n';
         }
