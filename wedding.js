@@ -16,6 +16,7 @@
     // 1) DONNÉES  (noms et prix = EXEMPLES, à modifier par toi)
     // ----------------------------------------------------------
     const WEDDING_USD_RATE = 0.50;   // <-- CHANGE CETTE VALEUR
+   
     const imgur = (id) => 'https://i.imgur.com/' + id + '.jpg';
     const imgs = (ids) => ids.map(imgur);
 
