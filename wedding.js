@@ -17,7 +17,7 @@
     // ----------------------------------------------------------
     // Taux TND -> USD de la collection Wedding UNIQUEMENT.
     // Le reste du site continue d'utiliser USD_RATE (dans index.html).
-    const WEDDING_USD_RATE = 0.50;   // <-- CHANGE CETTE VALEUR
+    const WEDDING_USD_RATE = 0.30;   // <-- CHANGE CETTE VALEUR
 
     const imgur = (id) => 'https://i.imgur.com/' + id + '.jpg';
     const imgs = (ids) => ids.map(imgur);
