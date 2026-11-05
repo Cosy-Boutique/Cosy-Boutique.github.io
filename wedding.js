@@ -40,36 +40,35 @@
     // images: [...]  => 2 ou 3 images = carrousel automatique
     const WEDDING_PRODUCTS = [
         // ===== BOUQUETS (précommande) =====
-        { id: 'wb-bq-001', name: 'Bouquet Éternité',   group: 'bouquet', price: 120.00, preorder: true, images: imgs(['G11s1jL', 'vXkxGs7', 'gKH77OD']) },
-        { id: 'wb-bq-002', name: 'Bouquet Camélia',    group: 'bouquet', price: 120.00, preorder: true, images: imgs(['Ej2rPym', 'ur2vO3I', 'w6TElWw']) },
-        { id: 'wb-bq-003', name: 'Bouquet Pureté',     group: 'bouquet', price: 120.00, preorder: true, images: imgs(['9FWQOYJ', 'zQTKzLc']) },
-        { id: 'wb-bq-004', name: 'Bouquet Ivoire',     group: 'bouquet', price: 120.00, preorder: true, images: imgs(['bPquBS7', 'u2ppdJm']) },
-        { id: 'wb-bq-005', name: 'Bouquet Séraphine',  group: 'bouquet', price: 120.00, preorder: true, images: imgs(['WMGNOWT', 'SgQfWRx']) },
-        { id: 'wb-bq-006', name: 'Bouquet Aurore',     group: 'bouquet', price: 120.00, preorder: true, images: imgs(['GiEdL2x']) },
-        { id: 'wb-bq-007', name: 'Bouquet Célestine',  group: 'bouquet', price: 120.00, preorder: true, images: imgs(['AcC2ZfL']) },
+        { id: 'wb-bq-001', name: 'Bouquet Éternité',   group: 'bouquet', price: 90.00, preorder: true, images: imgs(['G11s1jL', 'vXkxGs7', 'gKH77OD']) },
+        { id: 'wb-bq-002', name: 'Bouquet Camélia',    group: 'bouquet', price: 80.00, preorder: true, images: imgs(['Ej2rPym', 'ur2vO3I', 'w6TElWw']) },
+        { id: 'wb-bq-003', name: 'Bouquet Pureté',     group: 'bouquet', price: 90.00, preorder: true, images: imgs(['9FWQOYJ', 'zQTKzLc']) },
+        { id: 'wb-bq-004', name: 'Bouquet Ivoire',     group: 'bouquet', price: 80.00, preorder: true, images: imgs(['bPquBS7', 'u2ppdJm']) },
+        { id: 'wb-bq-005', name: 'Bouquet Séraphine',  group: 'bouquet', price: 90.00, preorder: true, images: imgs(['WMGNOWT', 'SgQfWRx']) },
+        { id: 'wb-bq-006', name: 'Bouquet Aurore',     group: 'bouquet', price: 80.00, preorder: true, images: imgs(['GiEdL2x']) },
+        { id: 'wb-bq-007', name: 'Bouquet Célestine',  group: 'bouquet', price: 80.00, preorder: true, images: imgs(['AcC2ZfL']) },
 
         // ===== COIFFURE (précommande) =====
-        { id: 'wb-hr-001', name: 'Serre-tête Perlé',   group: 'coiffure', price: 15.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['97b4nHI']) },
-        { id: 'wb-hr-002', name: 'Serre-tête Lune',    group: 'coiffure', price: 15.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['nEnlxbt']) },
-        { id: 'wb-hr-003', name: 'Serre-tête Halo',    group: 'coiffure', price: 15.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['D23Viqm']) },
-        { id: 'wb-hr-004', name: 'Serre-tête Aurélia', group: 'coiffure', price: 15.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['AUGyuJj']) },
-        { id: 'wb-hr-005', name: 'Serre-tête Étoile',  group: 'coiffure', price: 15.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['I4SLjPs']) },
-        { id: 'wb-hr-006', name: 'Broche Rosée',       group: 'coiffure', price: 10.00, preorder: true, subtitle: 'Broche à cheveux', images: imgs(['mAKZJOa']) },
+        { id: 'wb-hr-001', name: 'Serre-tête Perlé',   group: 'coiffure', price: 12.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['97b4nHI']) },
+        { id: 'wb-hr-002', name: 'Serre-tête Lune',    group: 'coiffure', price: 23.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['nEnlxbt']) },
+        { id: 'wb-hr-003', name: 'Serre-tête Aurélia',    group: 'coiffure', price: 16.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['D23Viqm']) },
+        { id: 'wb-hr-004', name: 'Serre-tête Étoile',  group: 'coiffure', price: 25.00, preorder: true, subtitle: 'Serre-tête', images: imgs(['I4SLjPs']) },
+        { id: 'wb-hr-005', name: 'Broche Rosée',       group: 'coiffure', price: 10.00, preorder: true, subtitle: 'Broche à cheveux', images: imgs(['mAKZJOa']) },
 
         // ===== PANIERS (précommande) =====
         { id: 'wb-pn-001', name: 'Panier Allégresse',  group: 'panier', price: 30.00, preorder: true, subtitle: "Vendu à l'unité", images: imgs(['zyL6fd3']) },
         { id: 'wb-pn-002', name: 'Panier Cérémonie',   group: 'panier', price: 30.00, preorder: true, images: imgs(['8LJVFvM']) },
         { id: 'wb-pn-003', name: 'Panier Dentelle',    group: 'panier', price: 30.00, preorder: true, subtitle: "Vendu à l'unité", images: imgs(['3jcEuiB']) },
         { id: 'wb-pn-004', name: 'Panier Pétale',      group: 'panier', price: 30.00, preorder: true, images: imgs(['8ac9DHI']) },
-        { id: 'wb-pn-005', name: 'Panier Jardin',      group: 'panier', price: 30.00, preorder: true, images: imgs(['gDhztsi']) },
+        { id: 'wb-pn-005', name: 'Panier Jardin',      group: 'panier', price: 35.00, preorder: true, images: imgs(['gDhztsi']) },
 
         // ===== PARURES (disponibles directement) =====
         { id: 'wb-pr-001', name: 'Parure Neige',       group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['oR1M2Kn']) },
         { id: 'wb-pr-002', name: 'Parure Perle Royale', group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['ZylQBFl']) },
-        { id: 'wb-pr-003', name: 'Parure Alliance',    group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['nnNv5YC']) },
+        { id: 'wb-pr-003', name: 'Parure Alliance',    group: 'parure-dos', price: 30.00, subtitle: 'Parure · vraies perles', images: imgs(['nnNv5YC']) },
         { id: 'wb-pr-004', name: 'Parure Rosée',       group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['M9OHVgl']) },
-        { id: 'wb-pr-005', name: 'Parure Opale',       group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['Sdd0PWu']) },
-        { id: 'wb-pr-006', name: 'Parure Divine',      group: 'parure-dos', price: 40.00, subtitle: 'Parure · vraies perles', images: imgs(['QU4E1G4']) },
+        { id: 'wb-pr-005', name: 'Parure Opale',       group: 'parure-dos', price: 30.00, subtitle: 'Parure · vraies perles', images: imgs(['Sdd0PWu']) },
+        { id: 'wb-pr-006', name: 'Parure Divine',      group: 'parure-dos', price: 45.00, subtitle: 'Parure · vraies perles', images: imgs(['QU4E1G4']) },
 
         // ===== ACCESSOIRES POUR LE DOS (disponibles directement) =====
         { id: 'wb-ds-001', name: 'Dos Cascade',        group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['M8OiH33']) },
@@ -79,12 +78,11 @@
         { id: 'wb-ds-005', name: 'Dos Aurore',         group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['GkPWpdj']) },
         { id: 'wb-ds-006', name: 'Dos Céleste',        group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['y1ICanJ']) },
         { id: 'wb-ds-007', name: 'Dos Étoilé',         group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['qHwWzCi']) },
-        { id: 'wb-ds-008', name: 'Dos Soie',           group: 'parure-dos', price: 50.00, subtitle: 'Accessoire pour le dos · vraies perles', images: imgs(['5mw6zDg']) },
-
+        
         // ===== PINS (précommande) =====
         { id: 'wb-pi-001', name: 'Pin Alliance',       group: 'pin', price: 10.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['kumVQD6']) },
         { id: 'wb-pi-002', name: 'Pin Boutonnière',    group: 'pin', price: 10.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['PDADT6M']) },
-        { id: 'wb-pi-003', name: 'Pin Éternel',        group: 'pin', price: 10.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['1ABjKh1']) },
+        { id: 'wb-pi-003', name: 'Pin Éternel',        group: 'pin', price: 13.00, preorder: true, subtitle: 'Pin pour la veste du marié', images: imgs(['1ABjKh1']) },
 
         // ===== CADEAUX INVITÉS : PORTE-CLÉS (précommande, minimum 45) =====
         // Pas de photo pour l'instant : ajoute des liens dans images: [...] quand tu les as.
