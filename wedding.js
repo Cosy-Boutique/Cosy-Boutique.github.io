@@ -88,9 +88,9 @@
 
         // ===== CADEAUX INVITÉS : PORTE-CLÉS (précommande, minimum 45) =====
         // Pas de photo pour l'instant : ajoute des liens dans images: [...] quand tu les as.
-        { id: 'wb-key-001', name: 'Porte-clés pour vos invités', group: 'cadeau', price: 4.00, preorder: true,
-          minQuantity: 45, wide: true, images: [],
-          subtitle: 'Personnalisables : initiales et date des mariés' }
+        { id: 'wb-key-001', name: 'Porte-clés pour vos invités', group: 'cadeau', price: 3.00, preorder: true,
+          minQuantity: 45, wide: true, 
+          subtitle: 'Personnalisables : initiales et date des mariés', images: imgs(['1hH7MmG','ipmLslL','5ykiY0g']) }
     ];
 
     // ----------------------------------------------------------
@@ -100,7 +100,7 @@
         slug: 'wedding',
         name: 'The Wedding Collection',
         eyebrow: 'Nouvelle collection',
-        quote: 'Le plus beau jour mérite des détails faits main, perle après perle.',
+        quote: 'Le plus beau jour mérite des détails faits main.',
         tileImage: 'wedding/couverture.jpg',
         backgroundGradient: 'linear-gradient(180deg, #FBF6EC 0%, #F1E6D2 55%, #E7D6B6 100%)',
         notice: 'Collection sur précommande : à commander 1 à 2 semaines à l’avance. ' +
