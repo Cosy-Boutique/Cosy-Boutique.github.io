@@ -310,24 +310,7 @@
 
         /* ===== SECTION VIDÉO / HERO ===== */
         .video-section {
-            padding: 28px 20px 56px;
             background: linear-gradient(180deg, var(--pink-pale) 0%, var(--white-soft) 55%);
-        }
-
-        .hero-eyebrow {
-            max-width: 1200px;
-            margin: 0 auto 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 12px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--pink-dark);
-            font-weight: 600;
-            opacity: 0;
-            animation: heroFadeUp 0.8s var(--ease-soft) 0.1s forwards;
         }
 
         .hero-eyebrow .dot {
@@ -360,11 +343,11 @@
 
         .video-container video {
             width: 100%;
-            height: auto;
-            min-height: 320px;
-            max-height: 480px;
-            display: block;
-            object-fit: cover;
+             height: 100vh;
+             max-height: none;
+              min-height: 100vh;
+             display: block;
+             object-fit: cover;
         }
 
         .hero-scrim {
@@ -567,23 +550,6 @@
 
         .product-img {
             position: relative;
-        }
-
-        .product-img::before {
-            content: '\2726 fait main';
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(4px);
-            color: var(--pink-dark);
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            padding: 5px 10px;
-            border-radius: 20px;
-            z-index: 2;
         }
 
         .product-info {
@@ -1440,10 +1406,7 @@
             .product-info, .model-info {
                 padding: 14px;
             }
-            .video-container video {
-                min-height: 260px;
-                max-height: 340px;
-            }
+        
             .hero-title {
                 font-size: clamp(24px, 7vw, 34px);
             }
@@ -1512,10 +1475,21 @@
                 font-size: 14px;
             }
             .video-container {
-                border-radius: 20px;
+                position: relative;
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+                overflow: hidden;
+               box-shadow: none;
+               opacity: 0;
+               transform: scale(0.99);
+              animation: heroReveal 1s var(--ease-soft) 0.15s forwards;
             }
+          
             .video-section {
-                padding: 18px 14px 40px;
+                padding: 0;
+                background: none;
             }
             .section-title h2 {
                 font-size: 22px;
@@ -1856,7 +1830,6 @@
 
 <!-- SECTION ACCUEIL -->
 <section id="section-accueil" class="video-section">
-    <p class="hero-eyebrow"><span class="dot"></span>Fait main &middot; perle après perle<span class="dot"></span></p>
     <div class="video-container">
         <video autoplay muted loop playsinline>
             <source src="bonnevideo.mp4" type="video/mp4">
@@ -1865,9 +1838,6 @@
         <div class="hero-scrim">
             <h1 class="hero-title">L'art des perles,<br><em>par deux sœurs</em></h1>
             <p class="hero-quote">Tunisie &amp; RDC — une histoire, un fil, deux mains</p>
-            <button id="discoverBtn" class="hero-cta">
-                Découvrir nos créations
-            </button>
         </div>
     </div>
 </section>
@@ -2159,8 +2129,8 @@
         { id: "cf-024", name: "source", category: "collier-femme", price: 8.00, image: "WhatsApp_Image_2026-01-26_at_08.34.46_1_ad8qfn.jpg" },
         { id: "cf-025", name: "kiki", category: "collier-femme", price: 10.00, image: "WhatsApp_Image_2026-01-26_at_08.34.46_3_lrkjm3.jpg" },
         { id: "cf-026", name: "lot de deux colliers Ponyo", category: "collier-femme", price: 15.00, image: "WhatsApp_Image_2026-01-26_at_08.34.46_6_qetnyn.jpg" },
-        { id: "cf-027", name: "lot de deux Colliers bambino", category: "collier-femme", price: 15.00, image: "IMG_7813_ikvek4.jpg" },
-        { id: "cf-028", name: "mini", category: "collier-femme", price: 10.00, image: "IMG_7807_wluw4c.jpg" },
+        { id: "cf-027", name: "lot de deux Colliers bambino", category: "collier-femme", price: 15.00, image: "IMG_7813_ikvek4.jpg", style: "minimaliste" },
+        { id: "cf-028", name: "mini", category: "collier-femme", price: 10.00, image: "IMG_7807_wluw4c.jpg", style: "minimaliste" },
         { id: "cf-029", name: "lot de trois Colliers Haramaya", category: "collier-femme", price: 24.00, image: "IMG_7814_y80bme.jpg" },
         { id: "cf-030", name: "Âmes Sœurs rouge", category: "collier-femme", price: 15.00, image: "IMG_7810_pqz5mq.jpg" },
         { id: "cf-031", name: "Âmes Sœurs bleu", category: "collier-femme", price: 15.00, image: "IMG_7812_dvcyjw.jpg" },
@@ -2824,6 +2794,7 @@
     function closeCollectionUniverse() {
         document.getElementById('section-collection-universe').style.display = 'none';
         showSection('accueil');
+        document.getElementById('section-univers-tiles').style.display = 'block';
     }
 
     // ============================================
@@ -3028,18 +2999,6 @@
         });
     }
     
-    const discoverBtn = document.getElementById('discoverBtn');
-    if (discoverBtn) {
-        discoverBtn.addEventListener('click', () => {
-            showSection('boutique');
-            document.getElementById('cartModal').classList.remove('open');
-        });
-    }
-    if (cartModal) {
-        cartModal.addEventListener('click', (e) => {
-            if (e.target === cartModal) cartModal.classList.remove('open');
-        });
-    }
     
     const customModal = document.getElementById('customModal');
     const closeModalBtn = document.querySelector('.close-modal');
