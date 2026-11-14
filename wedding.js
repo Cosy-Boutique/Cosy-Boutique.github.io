@@ -331,6 +331,10 @@
         ['section-accueil', 'section-collections-gallery', 'section-boutique', 'section-personnalisation']
             .forEach((id) => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
 
+        // Cache les tuiles "Pour Elle / Pour Lui" (gérées par univers.js)
+        const tiles = document.getElementById('section-univers-tiles');
+        if (tiles) tiles.style.display = 'none';
+
         const universe = document.getElementById('section-collection-universe');
         universe.classList.add('wedding-universe');
 
@@ -411,7 +415,9 @@
     // 8a) ouverture des collections : wedding géré ici, les autres comme avant
     const _openCollectionUniverse = openCollectionUniverse;
     openCollectionUniverse = function (slug) {
+        const tiles = document.getElementById('section-univers-tiles');
         if (slug === 'wedding') {
+            if (tiles) tiles.style.display = 'none';
             openWeddingUniverse();
         } else {
             clearTimers();
@@ -422,7 +428,7 @@
         }
     };
 
-    // 8b) quand on quitte l'univers : on nettoie
+    // 8b) quand on quitte l'univers : on nettoie + on réaffiche les tuiles si retour accueil
     const _showSection = showSection;
     showSection = function (id) {
         clearTimers();
@@ -430,6 +436,8 @@
         const bg = document.getElementById('collectionUniverseBg');
         if (bg) bg.style.background = '';
         _showSection(id);
+        const tiles = document.getElementById('section-univers-tiles');
+        if (tiles) tiles.style.display = (id === 'accueil') ? 'block' : 'none';
     };
 
     // 8c) panier : étiquette "Précommande" + bouton WhatsApp
