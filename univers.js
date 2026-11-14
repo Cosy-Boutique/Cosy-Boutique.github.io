@@ -447,7 +447,7 @@
         let paused = false;
         let resumeTimer = null;
         function pause() { paused = true; clearTimeout(resumeTimer); }
-        function resume() { clearTimeout(resumeTimer); resumeTimer = setTimeout(function () { paused = false; }, 3000); }
+        function resume() { clearTimeout(resumeTimer); resumeTimer = setTimeout(function () { paused = false; }, 2000); }
         ['mouseenter', 'touchstart', 'pointerdown', 'focusin'].forEach(function (ev) { sc.addEventListener(ev, pause, { passive: true }); });
         ['mouseleave', 'touchend', 'touchcancel', 'focusout'].forEach(function (ev) { sc.addEventListener(ev, resume, { passive: true }); });
         essTimer = setInterval(function () {
@@ -458,7 +458,7 @@
             const max = sc.scrollWidth - sc.clientWidth;
             if (sc.scrollLeft >= max - 6) sc.scrollTo({ left: 0, behavior: 'smooth' });
             else sc.scrollBy({ left: step, behavior: 'smooth' });
-        }, 4000);
+        }, 1500);
     }
 
     // ---------- Accueil de l'univers : (Essentiels) > Styles > Catégories ----------
