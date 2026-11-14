@@ -643,6 +643,7 @@
             origOpenCollection(slug);
             tiles.style.display = 'none';
             univ.style.display = 'none';
+            document.getElementById('section-univers-tiles').style.display = 'none';
         };
     }
 
@@ -1357,3 +1358,4 @@
     }
     handleIncomingLinks();
 })();
+
