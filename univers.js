@@ -34,7 +34,7 @@
             label: 'Homme',
             tileTitle: 'Pour Lui',
             tagline: 'Du quotidien aux grandes occasions, trouve les accessoires qui te ressemblent.',
-            tileImage: { src: 'PHOTO-2026-03-09-16-50-31_20_wdismq.jpg', local: false },
+            tileImage: { src: 'PHOTO-2026-03-09-16-50-31_20_wdismq.jpg'},
             categories: [
                 { key: 'collier-homme', label: 'Colliers' },
                 { key: 'bracelet',      label: 'Bracelets' },
