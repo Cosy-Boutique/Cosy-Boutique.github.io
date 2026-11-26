@@ -496,18 +496,28 @@
     function rateFor(item) { return item.category === 'mariage' ? WEDDING_USD_RATE : USD_RATE; }
     function cartSubtotalUSD() { return cart.reduce((sum, it) => sum + it.price * it.quantity * rateFor(it), 0); }
 
-    updateTotals = function () {
+       updateTotals = function () {
         const subtotalTND = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
         const subtotalUSD = cartSubtotalUSD();
+
+        // Remise du code promo (calculée dans univers.js), livraison non incluse
+        const discTND = (typeof window.cosyDiscountTND === 'function') ? window.cosyDiscountTND() : 0;
+        const discUSD = discTND * USD_RATE;
+        const afterTND = subtotalTND - discTND;
+        const afterUSD = Math.max(0, subtotalUSD - discUSD);
+        const line = discTND > 0
+            ? '<div class="cart-discount-line">Code ' + window.cosyPromoCode() + ' : \u2212' + discTND.toFixed(2) + ' TND</div>'
+            : '';
+
         let totalDisplay;
         if (selectedCountry === 'tunisia') {
-            const totalTND = subtotalTND + SHIPPING_TUNISIA_TND;
-            const totalUSD = subtotalUSD + SHIPPING_TUNISIA_TND * USD_RATE;
-            totalDisplay = 'Total: ' + totalTND.toFixed(2) + ' TND (' + totalUSD.toFixed(2) + ' USD)';
+            const totalTND = afterTND + SHIPPING_TUNISIA_TND;
+            const totalUSD = afterUSD + SHIPPING_TUNISIA_TND * USD_RATE;
+            totalDisplay = line + 'Total: ' + totalTND.toFixed(2) + ' TND (' + totalUSD.toFixed(2) + ' USD)';
         } else if (selectedCountry === 'kinshasa') {
-            totalDisplay = 'Total: ' + subtotalUSD.toFixed(2) + ' USD + frais de livraison';
+            totalDisplay = line + 'Total: ' + afterUSD.toFixed(2) + ' USD + frais de livraison';
         } else {
-            totalDisplay = 'Total: ' + subtotalTND.toFixed(2) + ' TND (' + subtotalUSD.toFixed(2) + ' USD)';
+            totalDisplay = line + 'Total: ' + afterTND.toFixed(2) + ' TND (' + afterUSD.toFixed(2) + ' USD)';
         }
         document.getElementById('cartTotalDisplay').innerHTML = totalDisplay;
     };
