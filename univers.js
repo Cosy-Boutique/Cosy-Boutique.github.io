@@ -1129,6 +1129,7 @@ document.addEventListener('touchend', function (e) {
                 value: Number(r.row.discount_value),
                 influencer: r.row.influencer || null,
                 min: Number(r.row.min_subtotal) || 0
+                max: r.row.max_discount != null ? Number(r.row.max_discount) : null 
             };
             localStorage.setItem('cosyPromoCode', promo.code);
             if (!silent) showToast('Code ' + promo.code + ' appliqué !');
@@ -1174,7 +1175,8 @@ document.addEventListener('touchend', function (e) {
     const origUpdateTotals = updateTotals;
     updateTotals = function () {
         origUpdateTotals();
-        const d = currentDiscountTND();
+       let d = promo.type === 'percent' ? sub * promo.value / 100 : Math.min(promo.value, sub);
+        if (promo.max) d = Math.min(d, promo.max);
         if (!d) return;
         const afterTND = subtotalTND() - d;
         const line = '<div class="cart-discount-line">Code ' + escHtml(promo.code) + ' : \u2212' + d.toFixed(2) + ' TND</div>';
