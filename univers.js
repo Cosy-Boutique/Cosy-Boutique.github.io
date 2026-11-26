@@ -1097,6 +1097,8 @@ document.addEventListener('touchend', function (e) {
         if (promo.max) d = Math.min(d, promo.max);
         return Math.round(d * 100) / 100;
     }
+    window.cosyDiscountTND = currentDiscountTND;
+    window.cosyPromoCode = function () { return promo ? promo.code : ''; };
 
     async function validateCode(raw) {
         const code = (raw || '').trim();
