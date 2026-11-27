@@ -82,7 +82,7 @@
     const ESSENTIAL_IDS = [];
 
     const MIXED_IDS = [
-        'br-042','br-043','br-002','br-003',
+         'br-001','br-002','br-003','br-004','br-008','br-010','br-011','br-042','br-043',
         'br-nouv-005','br-nouv-006','br-nouv-007','ap-006'
     ];
 
